@@ -112,6 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_tileMaterial: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_gameObject: {fileID: 282504685660855957}
+  m_towerPrefab: {fileID: 5543635655155796003, guid: c43c85b8753c53546b933c0c5ae6f3e4, type: 3}
   m_xCoordinate: 0
   m_yCoordinate: 0
   m_distance: 99

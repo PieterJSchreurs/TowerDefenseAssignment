@@ -46,7 +46,7 @@ public class WorldCreator : MonoBehaviour
 
             for (int j = 0; j < m_rows; j++)
             {
-                GameObject tileGameObject = Instantiate(m_tilePrefab, new Vector3(i * tileWidth + (i * m_offsetBetweenTiles), 0, j * tileWidth + (j * m_offsetBetweenTiles)), Quaternion.identity);
+                GameObject tileGameObject = Instantiate(m_tilePrefab, new Vector3(i * tileWidth + (i * m_offsetBetweenTiles), 0, j * tileWidth + (j * m_offsetBetweenTiles)), Quaternion.identity, gameObject.transform);
                 TileEntity tileEntity = tileGameObject.GetComponent<TileEntity>();
                 tileEntity.m_xCoordinate = i;
                 tileEntity.m_yCoordinate = j;
