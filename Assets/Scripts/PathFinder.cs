@@ -8,11 +8,9 @@ public class PathFinder : MonoBehaviour
     [SerializeField]
     private WorldCreator m_worldCreator;
 
-    private TileEntity[,] m_tileWorld;
-    private PriorityQueue m_priorityQueue = new PriorityQueue();
+    private PriorityQueue m_priorityQueue;
     private class PriorityQueue
     {
-        //Dictionary<float, TileEntity> m_priorityQueue = new Dictionary<float, TileEntity>();
         List<TileEntity> m_priorityQueue = new List<TileEntity>();
         public void AddToQueue(TileEntity pTileEntity, int pPriority)
         {
@@ -69,7 +67,6 @@ public class PathFinder : MonoBehaviour
 
         bool pathFound = FindPath(m_worldCreator.GetWorldArray(), startNode, endNode);
         List<TileEntity> coordinateList = new List<TileEntity>();
-
         if (pathFound && endNode.m_parent != null && endNode.m_visited)
         {
             TileEntity selectedCoordinate = endNode;
@@ -79,15 +76,18 @@ public class PathFinder : MonoBehaviour
                 selectedCoordinate = selectedCoordinate.m_parent;
                 if (selectedCoordinate != startNode && selectedCoordinate != endNode)
                 {
-                    selectedCoordinate.SetTileStatus(TILESTATUS.OCCUPIED);
+                    selectedCoordinate.SetTileStatus(TILESTATUS.WALKINGPATH);
                 }
             }
+            coordinateList.Add(selectedCoordinate);
             coordinateList.Reverse();
+            m_worldCreator.ClearAllParents();
         }
         else
         {
             Debug.Log("No path");
         }
+
 
         return coordinateList;
     }
@@ -98,6 +98,7 @@ public class PathFinder : MonoBehaviour
 
         pStartNode.m_visited = true;
         pStartNode.m_distance = 0;
+        m_priorityQueue = new PriorityQueue();
         m_priorityQueue.AddToQueue(pStartNode, 0);
         TileEntity curNode;
         while (!m_priorityQueue.isEmpty())

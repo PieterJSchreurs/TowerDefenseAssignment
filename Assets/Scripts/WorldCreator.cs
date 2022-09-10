@@ -14,6 +14,7 @@ public class WorldCreator : MonoBehaviour
     private PathFinder m_pathFinder;
 
     private TileEntity[,] m_tileEntitiesWorldArray;
+    private List<GameObject> m_gameObjectTiles = new List<GameObject>();
 
 
     // Start is called before the first frame update
@@ -28,7 +29,7 @@ public class WorldCreator : MonoBehaviour
                 AddNeighbours(m_tileEntitiesWorldArray, m_tileEntitiesWorldArray[i, j]);
             }
         }
-        m_pathFinder.GeneratePath();
+       // m_pathFinder.GeneratePath();
     }
 
     public TileEntity[,] GetWorldArray()
@@ -42,7 +43,6 @@ public class WorldCreator : MonoBehaviour
 
         for (int i = 0; i < m_columns; i++)
         {
-
             for (int j = 0; j < m_rows; j++)
             {
                 GameObject tileGameObject = Instantiate(m_tilePrefab, new Vector3(i * tileWidth + (i * m_offsetBetweenTiles), 0, j * tileWidth + (j * m_offsetBetweenTiles)), Quaternion.identity);
@@ -50,6 +50,7 @@ public class WorldCreator : MonoBehaviour
                 tileEntity.m_xCoordinate = i;
                 tileEntity.m_yCoordinate = j;
                 tileEntity.SetTileStatus(TILESTATUS.OPEN);
+                m_gameObjectTiles.Add(tileGameObject);
 
                 if (i == 0 && j == 0)
                 {
@@ -65,9 +66,21 @@ public class WorldCreator : MonoBehaviour
         }
     }
 
+    public void ClearAllParents()
+    {
+        for (int i = 0; i < m_tileEntitiesWorldArray.GetLength(0); i++)
+        {
+            for (int j = 0; j < m_tileEntitiesWorldArray.GetLength(1); j++)
+            {
+                m_tileEntitiesWorldArray[i, j].m_visited = false;
+                m_tileEntitiesWorldArray[i, j].m_parent = null;
+                m_tileEntitiesWorldArray[i, j].m_distance = 99;
+            }
+        }
+    }
+
     private void AddNeighbours(TileEntity[,] pTileList, TileEntity pTargetEntity)
     {
-
         if (pTargetEntity != null)
         {
             if (pTargetEntity.m_xCoordinate > 0)
@@ -100,7 +113,11 @@ public class WorldCreator : MonoBehaviour
         TileEntity endNode = m_tileEntitiesWorldArray[m_tileEntitiesWorldArray.GetLength(0) - 1, m_tileEntitiesWorldArray.GetLength(1) - 1];
         return endNode;
     }
+
+    public List<GameObject> GetGameObjectsTiles()
+    {
+        return m_gameObjectTiles;
+    }
 }
 
-public enum TILESTATUS { OPEN = 0, OCCUPIED = 1, START = 2, END = 3 }
 
