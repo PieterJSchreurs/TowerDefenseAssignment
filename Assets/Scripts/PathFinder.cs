@@ -14,7 +14,6 @@ public class PathFinder : MonoBehaviour
         List<TileEntity> m_priorityQueue = new List<TileEntity>();
         public void AddToQueue(TileEntity pTileEntity, int pPriority)
         {
-            //m_priorityQueue.Add(pPriority, pTileEntity);
             if (pPriority > m_priorityQueue.Count)
             {
                 m_priorityQueue.Add(pTileEntity);
