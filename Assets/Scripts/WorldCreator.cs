@@ -29,7 +29,7 @@ public class WorldCreator : MonoBehaviour
                 AddNeighbours(m_tileEntitiesWorldArray, m_tileEntitiesWorldArray[i, j]);
             }
         }
-       // m_pathFinder.GeneratePath();
+        m_pathFinder.GeneratePath();
     }
 
     public TileEntity[,] GetWorldArray()
@@ -85,6 +85,7 @@ public class WorldCreator : MonoBehaviour
 
     private void AddNeighbours(TileEntity[,] pTileList, TileEntity pTargetEntity)
     {
+
         if (pTargetEntity != null)
         {
             if (pTargetEntity.m_xCoordinate > 0)
