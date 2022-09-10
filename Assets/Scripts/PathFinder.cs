@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class PathFinder : MonoBehaviour
 {
@@ -8,15 +9,56 @@ public class PathFinder : MonoBehaviour
     private WorldCreator m_worldCreator;
 
     private TileEntity[,] m_tileWorld;
-    // Start is called before the first frame update
-    void Start()
+    private PriorityQueue m_priorityQueue = new PriorityQueue();
+    private class PriorityQueue
     {
+        //Dictionary<float, TileEntity> m_priorityQueue = new Dictionary<float, TileEntity>();
+        List<TileEntity> m_priorityQueue = new List<TileEntity>();
+        public void AddToQueue(TileEntity pTileEntity, int pPriority)
+        {
+            //m_priorityQueue.Add(pPriority, pTileEntity);
+            if (pPriority > m_priorityQueue.Count)
+            {
+                m_priorityQueue.Add(pTileEntity);
+            }
+            else
+            {
+                m_priorityQueue.Insert(pPriority, pTileEntity);
+            }
+        }
 
-    }
+        public void RemoveFromQueue(TileEntity pTileEntity)
+        {
+            m_priorityQueue.Remove(pTileEntity);
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
+        public void ChangePriority(TileEntity pTileEntity, int pPriority)
+        {
+            RemoveFromQueue(pTileEntity);
+            AddToQueue(pTileEntity, pPriority);
+        }
+
+        public bool isEmpty()
+        {
+            if (m_priorityQueue.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool ContainsItem(TileEntity pTileEntity)
+        {
+            return m_priorityQueue.Contains(pTileEntity);
+        }
+
+        public TileEntity GetFirstInQueue()
+        {
+            return m_priorityQueue.FirstOrDefault();
+        }
 
     }
 
@@ -24,22 +66,18 @@ public class PathFinder : MonoBehaviour
     {
         TileEntity startNode = m_worldCreator.GetBeginNode();
         TileEntity endNode = m_worldCreator.GetEndNode();
-        if (startNode == endNode)
-        {
-            Debug.Log("oopsie");
-        }
+
         bool pathFound = FindPath(m_worldCreator.GetWorldArray(), startNode, endNode);
         List<TileEntity> coordinateList = new List<TileEntity>();
 
-        if (pathFound)
+        if (pathFound && endNode.m_parent != null && endNode.m_visited)
         {
-            Debug.Log("Found path");
             TileEntity selectedCoordinate = endNode;
             while (selectedCoordinate != startNode)
             {
                 coordinateList.Add(selectedCoordinate);
                 selectedCoordinate = selectedCoordinate.m_parent;
-                if (selectedCoordinate != startNode)
+                if (selectedCoordinate != startNode && selectedCoordinate != endNode)
                 {
                     selectedCoordinate.SetTileStatus(TILESTATUS.OCCUPIED);
                 }
@@ -59,13 +97,37 @@ public class PathFinder : MonoBehaviour
         if (pStartNode == pEndNode) return true;
 
         pStartNode.m_visited = true;
-        List<TileEntity> unvisitedNeighbours = pStartNode.GetUnvisitedNeighbours();
-
-        for (int i = 0; i < unvisitedNeighbours.Count; i++)
+        pStartNode.m_distance = 0;
+        m_priorityQueue.AddToQueue(pStartNode, 0);
+        TileEntity curNode;
+        while (!m_priorityQueue.isEmpty())
         {
-            unvisitedNeighbours[i].m_parent = pStartNode;
-            if (FindPath(pTileEntities, unvisitedNeighbours[i], pEndNode)) return true;
+            curNode = m_priorityQueue.GetFirstInQueue();
+            m_priorityQueue.RemoveFromQueue(curNode);
+            curNode.m_visited = true;
+
+            List<TileEntity> unvisitedNeighbours = curNode.GetUnvisitedNeighbours();
+            foreach (TileEntity item in unvisitedNeighbours)
+            {
+                float minDistance = Mathf.Min(item.m_distance, curNode.m_distance + 1);
+                if (minDistance != item.m_distance)
+                {
+                    item.m_distance = minDistance;
+                    item.m_parent = curNode;
+
+                    if (m_priorityQueue.ContainsItem(item))
+                    {
+                        m_priorityQueue.ChangePriority(item, (int)minDistance);
+                    }
+                    else
+                    {
+                        m_priorityQueue.AddToQueue(item, (int)minDistance);
+                    }
+                }
+            }
         }
-        return false;
+        return true;
     }
 }
+
+

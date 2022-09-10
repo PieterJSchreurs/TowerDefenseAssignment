@@ -14,6 +14,7 @@ public class TileEntity : MonoBehaviour
 
     public int m_xCoordinate;
     public int m_yCoordinate;
+    public float m_distance = 99;
     public bool m_visited = false;
     public TileEntity m_parent;
     public List<TileEntity> m_neighbours = new List<TileEntity>();
@@ -76,5 +77,13 @@ public class TileEntity : MonoBehaviour
             }
         }
         return neighbours;
+    }
+
+    public float CalculateDistance(TileEntity pGoalNode)
+    {
+        int xDiff = Mathf.Abs(pGoalNode.m_xCoordinate - m_xCoordinate);
+        int yDiff = Mathf.Abs(pGoalNode.m_yCoordinate - m_yCoordinate);
+        float distance = Mathf.Sqrt(Mathf.Pow(xDiff, 2) + Mathf.Pow(yDiff, 2));
+        return distance;
     }
 }
