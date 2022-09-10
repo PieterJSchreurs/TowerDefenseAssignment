@@ -25,6 +25,17 @@ public class TileEntity : MonoBehaviour
         m_renderer = m_gameObject.GetComponent<Renderer>();
     }
 
+    private void OnMouseDown()
+    {
+        if (GetTileStatus() != TILESTATUS.OCCUPIED)
+        {
+            SetTileStatus(TILESTATUS.OCCUPIED);
+        } else
+        {
+            SetTileStatus(TILESTATUS.OPEN);
+        }
+    }
+
     public void SetTileStatus(TILESTATUS tileStatus)
     {
         m_tileStatus = tileStatus;
@@ -54,6 +65,9 @@ public class TileEntity : MonoBehaviour
                 break;
             case TILESTATUS.END:
                 m_renderer.material.SetColor("_Color", Color.red);
+                break;
+            case TILESTATUS.WALKINGPATH:
+                m_renderer.material.SetColor("_Color", Color.grey);
                 break;
         }
     }
@@ -87,3 +101,5 @@ public class TileEntity : MonoBehaviour
         return distance;
     }
 }
+
+public enum TILESTATUS { OPEN = 0, OCCUPIED = 1, START = 2, END = 3, WALKINGPATH = 4 }

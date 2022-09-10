@@ -8,11 +8,9 @@ public class PathFinder : MonoBehaviour
     [SerializeField]
     private WorldCreator m_worldCreator;
 
-    private TileEntity[,] m_tileWorld;
-    private PriorityQueue m_priorityQueue = new PriorityQueue();
+    private PriorityQueue m_priorityQueue;
     private class PriorityQueue
     {
-        //Dictionary<float, TileEntity> m_priorityQueue = new Dictionary<float, TileEntity>();
         List<TileEntity> m_priorityQueue = new List<TileEntity>();
         public void AddToQueue(TileEntity pTileEntity, int pPriority)
         {
@@ -69,7 +67,6 @@ public class PathFinder : MonoBehaviour
 
         bool pathFound = FindPath(m_worldCreator.GetWorldArray(), startNode, endNode);
         List<TileEntity> coordinateList = new List<TileEntity>();
-
         if (pathFound && endNode.m_parent != null && endNode.m_visited)
         {
             TileEntity selectedCoordinate = endNode;
@@ -79,9 +76,10 @@ public class PathFinder : MonoBehaviour
                 selectedCoordinate = selectedCoordinate.m_parent;
                 if (selectedCoordinate != startNode && selectedCoordinate != endNode)
                 {
-                    selectedCoordinate.SetTileStatus(TILESTATUS.OCCUPIED);
+                    selectedCoordinate.SetTileStatus(TILESTATUS.WALKINGPATH);
                 }
             }
+            coordinateList.Add(selectedCoordinate);
             coordinateList.Reverse();
         }
         else
@@ -89,15 +87,18 @@ public class PathFinder : MonoBehaviour
             Debug.Log("No path");
         }
 
+
         return coordinateList;
     }
 
     private bool FindPath(TileEntity[,] pTileEntities, TileEntity pStartNode, TileEntity pEndNode)
     {
         if (pStartNode == pEndNode) return true;
+        m_worldCreator.ClearAllTiles();
 
         pStartNode.m_visited = true;
         pStartNode.m_distance = 0;
+        m_priorityQueue = new PriorityQueue();
         m_priorityQueue.AddToQueue(pStartNode, 0);
         TileEntity curNode;
         while (!m_priorityQueue.isEmpty())
@@ -123,6 +124,10 @@ public class PathFinder : MonoBehaviour
                     {
                         m_priorityQueue.AddToQueue(item, (int)minDistance);
                     }
+                }
+                if (curNode == pEndNode)
+                {
+                    return true;
                 }
             }
         }
