@@ -124,6 +124,3 @@ public class WorldCreator : MonoBehaviour
         return m_gameObjectTiles;
     }
 }
-
-public enum TILESTATUS { OPEN = 0, OCCUPIED = 1, START = 2, END = 3 }
-

@@ -81,7 +81,6 @@ public class PathFinder : MonoBehaviour
             }
             coordinateList.Add(selectedCoordinate);
             coordinateList.Reverse();
-            m_worldCreator.ClearAllParents();
         }
         else
         {
