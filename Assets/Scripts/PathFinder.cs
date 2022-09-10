@@ -67,7 +67,6 @@ public class PathFinder : MonoBehaviour
 
         bool pathFound = FindPath(m_worldCreator.GetWorldArray(), startNode, endNode);
         List<TileEntity> coordinateList = new List<TileEntity>();
-
         if (pathFound && endNode.m_parent != null && endNode.m_visited)
         {
             TileEntity selectedCoordinate = endNode;
@@ -82,6 +81,7 @@ public class PathFinder : MonoBehaviour
             }
             coordinateList.Add(selectedCoordinate);
             coordinateList.Reverse();
+            m_worldCreator.ClearAllParents();
         }
         else
         {

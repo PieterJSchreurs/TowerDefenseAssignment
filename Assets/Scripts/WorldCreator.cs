@@ -29,7 +29,7 @@ public class WorldCreator : MonoBehaviour
                 AddNeighbours(m_tileEntitiesWorldArray, m_tileEntitiesWorldArray[i, j]);
             }
         }
-        m_pathFinder.GeneratePath();
+       // m_pathFinder.GeneratePath();
     }
 
     public TileEntity[,] GetWorldArray()
@@ -43,6 +43,7 @@ public class WorldCreator : MonoBehaviour
 
         for (int i = 0; i < m_columns; i++)
         {
+
             for (int j = 0; j < m_rows; j++)
             {
                 GameObject tileGameObject = Instantiate(m_tilePrefab, new Vector3(i * tileWidth + (i * m_offsetBetweenTiles), 0, j * tileWidth + (j * m_offsetBetweenTiles)), Quaternion.identity);
@@ -85,7 +86,6 @@ public class WorldCreator : MonoBehaviour
 
     private void AddNeighbours(TileEntity[,] pTileList, TileEntity pTargetEntity)
     {
-
         if (pTargetEntity != null)
         {
             if (pTargetEntity.m_xCoordinate > 0)
@@ -125,4 +125,5 @@ public class WorldCreator : MonoBehaviour
     }
 }
 
+public enum TILESTATUS { OPEN = 0, OCCUPIED = 1, START = 2, END = 3 }
 
