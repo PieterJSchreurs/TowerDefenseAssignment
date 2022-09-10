@@ -10,55 +10,97 @@ public class WorldCreator : MonoBehaviour
     public GameObject m_tilePrefab;
     [SerializeField]
     public float m_offsetBetweenTiles;
+    [SerializeField]
+    private PathFinder m_pathFinder;
 
-    private TILESTATUS[,] m_worldArray;
-    private GameObject[] tileObjects;
+    private TileEntity[,] m_tileEntitiesWorldArray;
+
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        CreateWorldArray();
+        m_tileEntitiesWorldArray = new TileEntity[m_columns, m_rows];
         CreateWorldTiles();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    private void CreateWorldArray()
-    {
-        m_worldArray = new TILESTATUS[m_columns, m_rows];
-        for (int i = 0; i < m_columns; ++i)
+        for (int i = 0; i < m_tileEntitiesWorldArray.GetLength(0); i++)
         {
-            for (int j = 0; j < m_rows; ++j)
+            for (int j = 0; j < m_tileEntitiesWorldArray.GetLength(1); j++)
             {
-                m_worldArray[i, j] = TILESTATUS.OPEN;
+                AddNeighbours(m_tileEntitiesWorldArray, m_tileEntitiesWorldArray[i, j]);
             }
         }
+        m_pathFinder.GeneratePath();
     }
 
-    public TILESTATUS[,] GetWorldArray()
+    public TileEntity[,] GetWorldArray()
     {
-        return m_worldArray;
+        return m_tileEntitiesWorldArray;
     }
 
     private void CreateWorldTiles()
     {
         float tileWidth = m_tilePrefab.transform.lossyScale.x;
-        float halfWidthColumns = m_columns / 2;
-        float halfWidthRows = m_rows / 2;
-        for (float i = 0 - halfWidthColumns; i < halfWidthColumns; ++i)
+
+        for (int i = 0; i < m_columns; i++)
         {
-            for (float j = 0 - halfWidthRows; j < halfWidthRows; ++j)
+
+            for (int j = 0; j < m_rows; j++)
             {
-                Instantiate(m_tilePrefab, new Vector3(i * tileWidth + (i * m_offsetBetweenTiles), 0, j * tileWidth + (j * m_offsetBetweenTiles)), Quaternion.identity);
+                GameObject tileGameObject = Instantiate(m_tilePrefab, new Vector3(i * tileWidth + (i * m_offsetBetweenTiles), 0, j * tileWidth + (j * m_offsetBetweenTiles)), Quaternion.identity);
+                TileEntity tileEntity = tileGameObject.GetComponent<TileEntity>();
+                tileEntity.m_xCoordinate = i;
+                tileEntity.m_yCoordinate = j;
+                tileEntity.SetTileStatus(TILESTATUS.OPEN);
+
+                if (i == 0 && j == 0)
+                {
+                    tileEntity.SetTileStatus(TILESTATUS.START);
+                }
+                if (i == m_columns - 1 && j == m_rows - 1)
+                {
+                    tileEntity.SetTileStatus(TILESTATUS.END);
+                }
+
+                m_tileEntitiesWorldArray[i, j] = tileEntity;
             }
         }
     }
 
+    private void AddNeighbours(TileEntity[,] pTileList, TileEntity pTargetEntity)
+    {
 
+        if (pTargetEntity != null)
+        {
+            if (pTargetEntity.m_xCoordinate > 0)
+            {
+                pTargetEntity.m_neighbours.Add(pTileList[pTargetEntity.m_xCoordinate - 1, pTargetEntity.m_yCoordinate]);
+            }
+            if (pTargetEntity.m_xCoordinate < m_columns - 1)
+            {
+                pTargetEntity.m_neighbours.Add(pTileList[pTargetEntity.m_xCoordinate + 1, pTargetEntity.m_yCoordinate]);
+            }
+            if (pTargetEntity.m_yCoordinate > 0)
+            {
+                pTargetEntity.m_neighbours.Add(pTileList[pTargetEntity.m_xCoordinate, pTargetEntity.m_yCoordinate - 1]);
+            }
+            if (pTargetEntity.m_yCoordinate < m_rows - 1)
+            {
+                pTargetEntity.m_neighbours.Add(pTileList[pTargetEntity.m_xCoordinate, pTargetEntity.m_yCoordinate + 1]);
+            }
+        }
+    }
+
+    public TileEntity GetBeginNode()
+    {
+        TileEntity startNode = m_tileEntitiesWorldArray[0, 0];
+        return startNode;
+    }
+
+    public TileEntity GetEndNode()
+    {
+        TileEntity endNode = m_tileEntitiesWorldArray[m_tileEntitiesWorldArray.GetLength(0) - 1, m_tileEntitiesWorldArray.GetLength(1) - 1];
+        return endNode;
+    }
 }
 
-public enum TILESTATUS { OPEN = 0, OCCUPIED = 1 }
+public enum TILESTATUS { OPEN = 0, OCCUPIED = 1, START = 2, END = 3 }
+

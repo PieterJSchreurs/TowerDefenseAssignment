@@ -293,8 +293,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.5050877, y: 0.006472921, z: -0.0037882267, w: 0.86303544}
-  m_LocalPosition: {x: -0.44912043, y: 4.2514606, z: -3.1065767}
+  m_LocalRotation: {x: 0.49076694, y: 0.009148092, z: -0.005153163, w: 0.8712276}
+  m_LocalPosition: {x: 2.33934, y: 4.08124, z: -1.1617767}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -311,6 +311,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2035293292}
   - component: {fileID: 2035293291}
+  - component: {fileID: 2035293293}
   m_Layer: 0
   m_Name: WorldCreatorObject
   m_TagString: Untagged
@@ -334,6 +335,7 @@ MonoBehaviour:
   m_columns: 5
   m_tilePrefab: {fileID: 282504685660855957, guid: 53fb5db58738d874a8c023cc339b9eae, type: 3}
   m_offsetBetweenTiles: 0.1
+  m_pathFinder: {fileID: 2035293293}
 --- !u!4 &2035293292
 Transform:
   m_ObjectHideFlags: 0
@@ -349,3 +351,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2035293293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035293290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc904f5f5a2890b4aad4ab3a09b16339, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_worldCreator: {fileID: 2035293291}
