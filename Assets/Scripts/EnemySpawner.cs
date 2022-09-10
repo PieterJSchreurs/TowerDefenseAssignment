@@ -21,7 +21,6 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         m_gameTiles = m_worldCreator.GetGameObjectsTiles();
-
     }
 
     // Update is called once per frame
@@ -34,6 +33,7 @@ public class EnemySpawner : MonoBehaviour
             EnemyEntity enemyEntity = enemyGameObject.GetComponent<EnemyEntity>();
             enemyEntity.secondPerTile = 2.0f;
             enemyEntity.path = m_currentPath;
+            enemyEntity.health = 2;
             enemyEntity.SetGameObject(enemyGameObject);
             enemyEntity.SetAllowedToMove(true);
         }

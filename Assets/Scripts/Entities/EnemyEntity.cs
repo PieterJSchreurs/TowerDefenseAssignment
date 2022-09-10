@@ -2,15 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyEntity : MonoBehaviour, IMovable
+public class EnemyEntity : MonoBehaviour, IMovable, IDamageable
 {
     private float m_secondPerTile;
+    private int m_health;
     private List<TileEntity> m_path;
     private int m_currentIndex = 0;
     private IEnumerator m_coroutine;
     private bool m_coroutineRunning = false;
     private bool m_allowedToMove = false;
     private GameObject m_myGameObject;
+
+    public int health
+    {
+        get { return m_health; }
+        set { m_health = value; }
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
+    }
 
     public float secondPerTile
     {
@@ -23,6 +35,19 @@ public class EnemyEntity : MonoBehaviour, IMovable
         get { return m_path; }
         set { m_path = value; }
     }
+    private void OnMouseDown()
+    {
+        TakeDamage(1);
+    }
+
+    public void TakeDamage(int pDamage)
+    {
+        health -= pDamage;
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
 
     public void Update()
     {
@@ -33,9 +58,10 @@ public class EnemyEntity : MonoBehaviour, IMovable
                 m_coroutine = MoveToNextTile(m_myGameObject, new Vector3(m_path[m_currentIndex + 1].m_gameObject.transform.position.x, 0, m_path[m_currentIndex + 1].m_gameObject.transform.position.z), 0.5f);
                 StartCoroutine(m_coroutine);
             }
-        } else
+        }
+        else
         {
-            if(!m_coroutineRunning)
+            if (!m_coroutineRunning)
             {
                 Destroy(m_myGameObject);
             }
