@@ -29,7 +29,6 @@ public class WorldCreator : MonoBehaviour
                 AddNeighbours(m_tileEntitiesWorldArray, m_tileEntitiesWorldArray[i, j]);
             }
         }
-       // m_pathFinder.GeneratePath();
     }
 
     public TileEntity[,] GetWorldArray()
@@ -76,7 +75,7 @@ public class WorldCreator : MonoBehaviour
                 m_tileEntitiesWorldArray[i, j].m_visited = false;
                 m_tileEntitiesWorldArray[i, j].m_parent = null;
                 m_tileEntitiesWorldArray[i, j].m_distance = 99;
-                if(m_tileEntitiesWorldArray[i,j].GetTileStatus() == TILESTATUS.WALKINGPATH)
+                if (m_tileEntitiesWorldArray[i, j].GetTileStatus() == TILESTATUS.WALKINGPATH)
                 {
                     m_tileEntitiesWorldArray[i, j].SetTileStatus(TILESTATUS.OPEN);
                 }

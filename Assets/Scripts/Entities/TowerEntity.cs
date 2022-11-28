@@ -13,6 +13,16 @@ public class TowerEntity : MonoBehaviour
 
     [SerializeField]
     private int m_cost, m_damage;
+
+    [SerializeField]
+    private GameObject m_debugSphere;
+
+    [SerializeField]
+    private Renderer m_capsuleRenderer;
+
+    [SerializeField]
+    private Material m_standardMaterial, m_cooldownMaterial;
+
     private bool m_canFire = true;
     private float m_attackTimer = 0.0f;
     private EnemyEntity m_enemyTarget;
@@ -22,8 +32,10 @@ public class TowerEntity : MonoBehaviour
     {
         if (m_sphereColider != null)
         {
-            m_sphereColider.radius = m_range;
+            m_sphereColider.radius = m_range / 2;
+            m_debugSphere.transform.localScale = new Vector3(m_range, m_range, m_range);
         }
+
     }
     void OnTriggerEnter(Collider other)
     {
@@ -50,6 +62,7 @@ public class TowerEntity : MonoBehaviour
         if (m_targetList.Count > 0 && m_canFire)
         {
             Attack();
+            m_capsuleRenderer.material = m_cooldownMaterial;
         }
         if (!m_canFire)
         {
@@ -57,6 +70,7 @@ public class TowerEntity : MonoBehaviour
             if (m_attackTimer >= m_shootingSpeed)
             {
                 m_canFire = true;
+                m_capsuleRenderer.material = m_standardMaterial;
             }
         }
         if (m_targetList.FirstOrDefault() == null && m_targetList.Count > 0)
