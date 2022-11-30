@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class TowerEntity : MonoBehaviour
 {
@@ -28,6 +29,8 @@ public class TowerEntity : MonoBehaviour
     private EnemyEntity m_enemyTarget;
     private List<GameObject> m_targetList = new List<GameObject>();
 
+    private float lerp = 0.0f;
+
     private void Awake()
     {
         if (m_sphereColider != null)
@@ -51,7 +54,7 @@ public class TowerEntity : MonoBehaviour
         {
             m_targetList.Remove(other.gameObject);
         }
-        if(other.gameObject.GetComponent<EnemyEntity>() == m_enemyTarget)
+        if (other.gameObject.GetComponent<EnemyEntity>() == m_enemyTarget)
         {
             m_enemyTarget = null;
         }
@@ -59,10 +62,17 @@ public class TowerEntity : MonoBehaviour
 
     private void Update()
     {
+        if(m_canFire)
+        {
+            m_capsuleRenderer.material.Lerp(m_standardMaterial, m_cooldownMaterial, 0);
+        } else
+        {
+            m_capsuleRenderer.material.Lerp(m_standardMaterial, m_cooldownMaterial, m_attackTimer);
+        }
+        
         if (m_targetList.Count > 0 && m_canFire)
         {
             Attack();
-            m_capsuleRenderer.material = m_cooldownMaterial;
         }
         if (!m_canFire)
         {
@@ -70,7 +80,7 @@ public class TowerEntity : MonoBehaviour
             if (m_attackTimer >= m_shootingSpeed)
             {
                 m_canFire = true;
-                m_capsuleRenderer.material = m_standardMaterial;
+                lerp = 0.0f;
             }
         }
         if (m_targetList.FirstOrDefault() == null && m_targetList.Count > 0)

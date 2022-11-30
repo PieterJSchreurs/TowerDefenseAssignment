@@ -7,7 +7,7 @@ public class WorldCreator : MonoBehaviour
     [SerializeField]
     public int m_rows, m_columns;
     [SerializeField]
-    public GameObject m_tilePrefab;
+    public GameObject m_tilePrefab, m_cameraObject;
     [SerializeField]
     public float m_offsetBetweenTiles;
     [SerializeField]
@@ -20,6 +20,7 @@ public class WorldCreator : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        CenterCamera();
         m_tileEntitiesWorldArray = new TileEntity[m_columns, m_rows];
         CreateWorldTiles();
         for (int i = 0; i < m_tileEntitiesWorldArray.GetLength(0); i++)
@@ -28,6 +29,14 @@ public class WorldCreator : MonoBehaviour
             {
                 AddNeighbours(m_tileEntitiesWorldArray, m_tileEntitiesWorldArray[i, j]);
             }
+        }
+    }
+
+    private void CenterCamera()
+    {
+        if(m_cameraObject!= null)
+        {
+            m_cameraObject.transform.position = new Vector3((m_rows/2) * m_tilePrefab.transform.lossyScale.x + (m_rows/2 * m_offsetBetweenTiles), 20, (m_columns / 2) * m_tilePrefab.transform.lossyScale.x + (m_columns/2 * m_offsetBetweenTiles));      
         }
     }
 
