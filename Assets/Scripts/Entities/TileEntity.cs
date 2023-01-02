@@ -8,6 +8,8 @@ public class TileEntity : MonoBehaviour
     private Material m_tileMaterial;
     [SerializeField]
     public GameObject m_gameObject;
+    [SerializeField]
+    private GameObject m_towerPrefab;
 
     private TILESTATUS m_tileStatus = TILESTATUS.OPEN;
     private Renderer m_renderer;
@@ -25,14 +27,23 @@ public class TileEntity : MonoBehaviour
         m_renderer = m_gameObject.GetComponent<Renderer>();
     }
 
-    private void OnMouseDown()
+    private void OnMouseOver()
     {
-        if (GetTileStatus() != TILESTATUS.OCCUPIED)
+        if (Input.GetMouseButtonDown(0))
         {
-            SetTileStatus(TILESTATUS.OCCUPIED);
-        } else
+            if (GetTileStatus() != TILESTATUS.OCCUPIED)
+            {
+                SetTileStatus(TILESTATUS.OCCUPIED);
+            }
+            else
+            {
+                SetTileStatus(TILESTATUS.OPEN);
+            }
+        }
+        else if (Input.GetMouseButtonDown(1))
         {
-            SetTileStatus(TILESTATUS.OPEN);
+            GameObject tower =  Instantiate(m_towerPrefab, new Vector3(m_gameObject.transform.position.x, 0, m_gameObject.transform.position.z), Quaternion.identity);
+            tower.transform.SetParent(m_gameObject.transform);
         }
     }
 

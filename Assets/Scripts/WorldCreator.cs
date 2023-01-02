@@ -7,7 +7,7 @@ public class WorldCreator : MonoBehaviour
     [SerializeField]
     public int m_rows, m_columns;
     [SerializeField]
-    public GameObject m_tilePrefab;
+    public GameObject m_tilePrefab, m_cameraObject;
     [SerializeField]
     public float m_offsetBetweenTiles;
     [SerializeField]
@@ -20,6 +20,7 @@ public class WorldCreator : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        CenterCamera();
         m_tileEntitiesWorldArray = new TileEntity[m_columns, m_rows];
         CreateWorldTiles();
         for (int i = 0; i < m_tileEntitiesWorldArray.GetLength(0); i++)
@@ -29,7 +30,14 @@ public class WorldCreator : MonoBehaviour
                 AddNeighbours(m_tileEntitiesWorldArray, m_tileEntitiesWorldArray[i, j]);
             }
         }
-       // m_pathFinder.GeneratePath();
+    }
+
+    private void CenterCamera()
+    {
+        if(m_cameraObject!= null)
+        {
+            m_cameraObject.transform.position = new Vector3((m_rows/2) * m_tilePrefab.transform.lossyScale.x + (m_rows/2 * m_offsetBetweenTiles), 20, (m_columns / 2) * m_tilePrefab.transform.lossyScale.x + (m_columns/2 * m_offsetBetweenTiles));      
+        }
     }
 
     public TileEntity[,] GetWorldArray()
@@ -46,7 +54,7 @@ public class WorldCreator : MonoBehaviour
 
             for (int j = 0; j < m_rows; j++)
             {
-                GameObject tileGameObject = Instantiate(m_tilePrefab, new Vector3(i * tileWidth + (i * m_offsetBetweenTiles), 0, j * tileWidth + (j * m_offsetBetweenTiles)), Quaternion.identity);
+                GameObject tileGameObject = Instantiate(m_tilePrefab, new Vector3(i * tileWidth + (i * m_offsetBetweenTiles), 0, j * tileWidth + (j * m_offsetBetweenTiles)), Quaternion.identity, gameObject.transform);
                 TileEntity tileEntity = tileGameObject.GetComponent<TileEntity>();
                 tileEntity.m_xCoordinate = i;
                 tileEntity.m_yCoordinate = j;
@@ -76,7 +84,7 @@ public class WorldCreator : MonoBehaviour
                 m_tileEntitiesWorldArray[i, j].m_visited = false;
                 m_tileEntitiesWorldArray[i, j].m_parent = null;
                 m_tileEntitiesWorldArray[i, j].m_distance = 99;
-                if(m_tileEntitiesWorldArray[i,j].GetTileStatus() == TILESTATUS.WALKINGPATH)
+                if (m_tileEntitiesWorldArray[i, j].GetTileStatus() == TILESTATUS.WALKINGPATH)
                 {
                     m_tileEntitiesWorldArray[i, j].SetTileStatus(TILESTATUS.OPEN);
                 }
