@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class EnemyEntity : MonoBehaviour, IMovable, IDamageable
 {
+    [SerializeField]
+    public Healthbar m_healthBar;
+
     private float m_secondPerTile;
     private int m_health;
     private List<TileEntity> m_path;
@@ -13,6 +16,11 @@ public class EnemyEntity : MonoBehaviour, IMovable, IDamageable
     private bool m_allowedToMove = false;
     private GameObject m_myGameObject;
 
+    void Start()
+    {
+        m_healthBar.SetMaxHealth(m_health);
+    }
+
     public int health
     {
         get { return m_health; }
@@ -21,7 +29,7 @@ public class EnemyEntity : MonoBehaviour, IMovable, IDamageable
 
     public void Die()
     {
-        Destroy(gameObject);
+        Destroy(gameObject.transform.parent.gameObject);
     }
 
     public float secondPerTile
@@ -35,14 +43,11 @@ public class EnemyEntity : MonoBehaviour, IMovable, IDamageable
         get { return m_path; }
         set { m_path = value; }
     }
-    private void OnMouseDown()
-    {
-        TakeDamage(1);
-    }
 
     public void TakeDamage(int pDamage)
     {
         health -= pDamage;
+        m_healthBar.SetHealth(health);
         if (health <= 0)
         {
             Die();

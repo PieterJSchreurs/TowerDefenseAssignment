@@ -30,10 +30,10 @@ public class EnemySpawner : MonoBehaviour
         {
             m_currentPath = m_pathFinder.GeneratePath();
             GameObject enemyGameObject = Instantiate(m_enemyPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            EnemyEntity enemyEntity = enemyGameObject.GetComponent<EnemyEntity>();
+            EnemyEntity enemyEntity = enemyGameObject.GetComponentInChildren<EnemyEntity>();
             enemyEntity.secondPerTile = 2.0f;
             enemyEntity.path = m_currentPath;
-            enemyEntity.health = 2;
+            enemyEntity.health = 5;
             enemyEntity.SetGameObject(enemyGameObject);
             enemyEntity.SetAllowedToMove(true);
         }
