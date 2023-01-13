@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IMovable 
 {
-    public float secondPerTile { get; set; }
+    public float secondsPerTile { get; set; }
     public List<TileEntity> path { get; set; }
     void MoveNext(int pCurrentIndex, float pTimeItTakes);
 }

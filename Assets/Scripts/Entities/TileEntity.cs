@@ -44,6 +44,7 @@ public class TileEntity : MonoBehaviour
         {
             GameObject tower =  Instantiate(m_towerPrefab, new Vector3(m_gameObject.transform.position.x, 0, m_gameObject.transform.position.z), Quaternion.identity);
             tower.transform.SetParent(m_gameObject.transform);
+            SetTileStatus(TILESTATUS.OCCUPIED);
         }
     }
 

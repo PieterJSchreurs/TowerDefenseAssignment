@@ -29,6 +29,7 @@ public class TowerEntity : MonoBehaviour
     private EnemyEntity m_enemyTarget;
     private List<GameObject> m_targetList = new List<GameObject>();
 
+    private TYPEOFATTACK m_typeOfAttack;
     private float lerp = 0.0f;
 
     private void Awake()
@@ -103,3 +104,5 @@ public class TowerEntity : MonoBehaviour
         }
     }
 }
+
+public enum TYPEOFATTACK { SingleTarget = 0, AreaOfEffect = 1, Debuff = 2 }
