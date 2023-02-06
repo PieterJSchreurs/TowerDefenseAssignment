@@ -8,6 +8,7 @@ public class EnemyEntity : MonoBehaviour, IMovable, IDamageable
     public Healthbar m_healthBar;
 
     private float m_secondPerTile;
+    public float secondsPerTile { get; set; }
     private int m_health;
     private List<TileEntity> m_path;
     private int m_currentIndex = 0;

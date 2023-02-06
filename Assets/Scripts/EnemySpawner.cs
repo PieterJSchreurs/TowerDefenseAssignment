@@ -50,7 +50,7 @@ public class EnemySpawner : MonoBehaviour
         if(m_waveActive)
         {
             timer += Time.deltaTime;
-            if (m_waveCount > 0) )
+            if (m_waveCount > 0)
             {
                 if(timer > m_miliSecondsBetweenSpawn)
                 { 
@@ -68,7 +68,7 @@ public class EnemySpawner : MonoBehaviour
     {
         m_waveCount--;
         m_currentPath = m_pathFinder.GeneratePath(); //Get last path if not changed.
-        GameObject enemyGameObject = Instantiate(m_enemyPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        GameObject enemyGameObject = Instantiate(pEnemyPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         EnemyEntity enemyEntity = enemyGameObject.GetComponentInChildren<EnemyEntity>();
         enemyEntity.secondsPerTile = 2.0f;
         enemyEntity.path = m_currentPath;
