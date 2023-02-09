@@ -18,7 +18,7 @@ public class EnemySpawner : MonoBehaviour
 
     private bool m_waveActive = false;
     private int m_waveCount = 0, m_waveMax = 10;
-    private float m_miliSecondsBetweenSpawn = 1000.0f, timer = 0;
+    private float m_secondsBetweenSpawn = 2.0f, timer = 0;
 
 
     // Start is called before the first frame update
@@ -32,8 +32,17 @@ public class EnemySpawner : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && m_waveCount == 0)
         {
+            ActivateWave();
+        }
+    }
+
+    public void ActivateWave()
+    {
+        if (m_waveCount == 0)
+        {
+            Debug.Log("Activating wave");
             m_waveActive = !m_waveActive;
-            if(m_waveActive)
+            if (m_waveActive)
             {
                 m_waveCount = m_waveMax;
             }
@@ -52,7 +61,7 @@ public class EnemySpawner : MonoBehaviour
             timer += Time.deltaTime;
             if (m_waveCount > 0)
             {
-                if(timer > m_miliSecondsBetweenSpawn)
+                if(timer > m_secondsBetweenSpawn)
                 { 
                     SpawnEnemy(m_enemyPrefabs[0]);
                     timer = 0;
@@ -66,6 +75,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy(GameObject pEnemyPrefab)
     {
+        Debug.Log("Spawning enemy");
         m_waveCount--;
         m_currentPath = m_pathFinder.GeneratePath(); //Get last path if not changed.
         GameObject enemyGameObject = Instantiate(pEnemyPrefab, new Vector3(0, 0, 0), Quaternion.identity);
@@ -75,5 +85,10 @@ public class EnemySpawner : MonoBehaviour
         enemyEntity.health = 5;
         enemyEntity.SetGameObject(enemyGameObject);
         enemyEntity.SetAllowedToMove(true);
+    }
+
+    public void SetSecondsBetweenSpawn(float pSeconds)
+    {
+        m_secondsBetweenSpawn = pSeconds;
     }
 }
