@@ -27,13 +27,9 @@ public class EnemySpawner : MonoBehaviour
         m_gameTiles = m_worldCreator.GetGameObjectsTiles();
     }
 
-    // Update is called once per frame
-    void Update()
+    public int GetNumberOfEnemiesInWave()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && m_waveCount == 0)
-        {
-            ActivateWave();
-        }
+        return m_waveMax;
     }
 
     public void ActivateWave()
@@ -91,4 +87,7 @@ public class EnemySpawner : MonoBehaviour
     {
         m_secondsBetweenSpawn = pSeconds;
     }
+
+    
+
 }

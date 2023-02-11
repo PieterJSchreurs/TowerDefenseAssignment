@@ -42,9 +42,12 @@ public class TileEntity : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(1))
         {
-            GameObject tower =  Instantiate(m_towerPrefab, new Vector3(m_gameObject.transform.position.x, 0, m_gameObject.transform.position.z), Quaternion.identity);
-            tower.transform.SetParent(m_gameObject.transform);
-            SetTileStatus(TILESTATUS.OCCUPIED);
+            if (GetTileStatus() == TILESTATUS.OPEN)
+            {
+                GameObject tower = Instantiate(m_towerPrefab, new Vector3(m_gameObject.transform.position.x, 0, m_gameObject.transform.position.z), Quaternion.identity);
+                tower.transform.SetParent(m_gameObject.transform);
+                SetTileStatus(TILESTATUS.OCCUPIED);
+            }
         }
     }
 

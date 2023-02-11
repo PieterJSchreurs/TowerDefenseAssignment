@@ -67,9 +67,13 @@ public class EnemyEntity : MonoBehaviour, IMovable, IDamageable
         }
         else
         {
+            //Reached end
             if (!m_coroutineRunning)
             {
                 Destroy(m_myGameObject);
+                //TODO: notify
+                GameLogic logic = FindObjectOfType<GameLogic>();
+                logic.LostLive();
             }
         }
     }
