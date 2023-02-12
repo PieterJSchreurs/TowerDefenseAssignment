@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class TileEntity : MonoBehaviour
 {
@@ -20,16 +21,30 @@ public class TileEntity : MonoBehaviour
     public bool m_visited = false;
     public TileEntity m_parent;
     public List<TileEntity> m_neighbours = new List<TileEntity>();
+    private WorldCreator m_worldCreator;
+    private TowerEntity m_tower;
+    private TMP_Text m_towerText;
+
 
     public void Awake()
     {
         m_gameObject = gameObject;
         m_renderer = m_gameObject.GetComponent<Renderer>();
+        m_worldCreator = FindAnyObjectByType<WorldCreator>();
+        m_towerText = GameObject.FindWithTag("TowerText").GetComponent<TMP_Text>();
     }
 
     private void OnMouseOver()
     {
         if (Input.GetMouseButtonDown(0))
+        {
+            m_worldCreator.SelectTileEntity(this);
+            if (m_towerText != null)
+            {
+               // m_towerText.text = "Tower info: \nDamage: " + m_tower.m_damage + "\nRange: " + m_tower.m_range + "\nSpeed: " + m_tower.m_shootingSpeed;
+            }
+        }
+        else if (Input.GetMouseButtonDown(1))
         {
             if (GetTileStatus() != TILESTATUS.OCCUPIED)
             {
@@ -40,20 +55,25 @@ public class TileEntity : MonoBehaviour
                 SetTileStatus(TILESTATUS.OPEN);
             }
         }
-        else if (Input.GetMouseButtonDown(1))
-        {
-            if (GetTileStatus() == TILESTATUS.OPEN)
-            {
-                GameObject tower = Instantiate(m_towerPrefab, new Vector3(m_gameObject.transform.position.x, 0, m_gameObject.transform.position.z), Quaternion.identity);
-                tower.transform.SetParent(m_gameObject.transform);
-                SetTileStatus(TILESTATUS.OCCUPIED);
-            }
-        }
     }
 
-    public void SetTileStatus(TILESTATUS tileStatus)
+    public void BuildTower()
     {
-        m_tileStatus = tileStatus;
+        GameObject tower = Instantiate(m_towerPrefab, new Vector3(m_gameObject.transform.position.x, 0, m_gameObject.transform.position.z), Quaternion.identity);
+        tower.transform.SetParent(m_gameObject.transform);
+        m_tower = tower.GetComponent<TowerEntity>();
+        SetTileStatus(TILESTATUS.OCCUPIED);
+    }
+
+    public TowerEntity GetTowerEntity()
+    {
+        return m_tower;
+    }
+
+    public void SetTileStatus(TILESTATUS pTileStatus)
+    {
+        Debug.Log("Setting tile status to " + pTileStatus);
+        m_tileStatus = pTileStatus;
         ChangeColor();
     }
 
@@ -83,6 +103,9 @@ public class TileEntity : MonoBehaviour
                 break;
             case TILESTATUS.WALKINGPATH:
                 m_renderer.material.SetColor("_Color", Color.grey);
+                break;
+            case TILESTATUS.SELECTED:
+                m_renderer.material.SetColor("_Color", Color.cyan);
                 break;
         }
     }
@@ -117,4 +140,4 @@ public class TileEntity : MonoBehaviour
     }
 }
 
-public enum TILESTATUS { OPEN = 0, OCCUPIED = 1, START = 2, END = 3, WALKINGPATH = 4 }
+public enum TILESTATUS { OPEN = 0, OCCUPIED = 1, START = 2, END = 3, WALKINGPATH = 4, SELECTED = 5 }

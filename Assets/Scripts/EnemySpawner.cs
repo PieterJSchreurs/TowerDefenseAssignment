@@ -19,12 +19,14 @@ public class EnemySpawner : MonoBehaviour
     private bool m_waveActive = false;
     private int m_waveCount = 0, m_waveMax = 10;
     private float m_secondsBetweenSpawn = 2.0f, timer = 0;
+    private GameLogic m_logic;
 
 
     // Start is called before the first frame update
     void Start()
     {
         m_gameTiles = m_worldCreator.GetGameObjectsTiles();
+        m_logic = FindObjectOfType<GameLogic>();
     }
 
     public int GetNumberOfEnemiesInWave()
@@ -73,12 +75,14 @@ public class EnemySpawner : MonoBehaviour
     {
         Debug.Log("Spawning enemy");
         m_waveCount--;
+        m_logic.UpdateEnemyCount(m_waveCount);
         m_currentPath = m_pathFinder.GeneratePath(); //Get last path if not changed.
         GameObject enemyGameObject = Instantiate(pEnemyPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         EnemyEntity enemyEntity = enemyGameObject.GetComponentInChildren<EnemyEntity>();
-        enemyEntity.secondsPerTile = 2.0f;
+        enemyEntity.movementSpeed = 2.0f;
         enemyEntity.path = m_currentPath;
         enemyEntity.health = 5;
+        enemyEntity.killReward = 5;
         enemyEntity.SetGameObject(enemyGameObject);
         enemyEntity.SetAllowedToMove(true);
     }

@@ -2,34 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyEntity : MonoBehaviour, IMovable, IDamageable
+public class EnemyEntity : MonoBehaviour
 {
     [SerializeField]
-    public Healthbar m_healthBar;
+    public Healthbar healthBar;
+
+    [SerializeField]
+    public float movementSpeed { get; set; }
+    [SerializeField]
+    public int health { get; set; }
+    [SerializeField]
+    public int killReward = 5;
 
     private float m_secondPerTile;
-    public float secondsPerTile { get; set; }
-    private int m_health;
     private List<TileEntity> m_path;
     private int m_currentIndex = 0;
     private IEnumerator m_coroutine;
     private bool m_coroutineRunning = false;
     private bool m_allowedToMove = false;
     private GameObject m_myGameObject;
+    private ResourceManager m_resourceManager;
 
     void Start()
     {
-        m_healthBar.SetMaxHealth(m_health);
+        healthBar.SetMaxHealth(health);
+        m_resourceManager = FindFirstObjectByType<ResourceManager>();
     }
-
-    public int health
-    {
-        get { return m_health; }
-        set { m_health = value; }
-    }
-
+      
     public void Die()
     {
+        m_resourceManager.AddResources(killReward);
         Destroy(gameObject.transform.parent.gameObject);
     }
 
@@ -48,7 +50,7 @@ public class EnemyEntity : MonoBehaviour, IMovable, IDamageable
     public void TakeDamage(int pDamage)
     {
         health -= pDamage;
-        m_healthBar.SetHealth(health);
+        healthBar.SetHealth(health);
         if (health <= 0)
         {
             Die();

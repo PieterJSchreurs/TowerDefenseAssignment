@@ -346,7 +346,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a6856bf8f950694398bcb7da0e4cd32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_healthBar: {fileID: 8975698657254530447}
+  healthBar: {fileID: 8975698657254530447}
+  killReward: 0
 --- !u!54 &2928708459815315197
 Rigidbody:
   m_ObjectHideFlags: 0

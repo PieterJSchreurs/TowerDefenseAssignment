@@ -32,8 +32,12 @@ public class TowerEntity : MonoBehaviour
     private TYPEOFATTACK m_typeOfAttack;
     private float lerp = 0.0f;
 
+ 
+
     private void Awake()
     {
+
+       
         if (m_sphereColider != null)
         {
             m_sphereColider.radius = m_range / 2;
@@ -41,6 +45,16 @@ public class TowerEntity : MonoBehaviour
         }
 
     }
+
+    //TODO: Check if onmouseover on child "Capsule" it's collider.
+    private void OnMouseOver()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("clicked");
+        }
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Enemy")
@@ -63,14 +77,15 @@ public class TowerEntity : MonoBehaviour
 
     private void Update()
     {
-        if(m_canFire)
+        if (m_canFire)
         {
             m_capsuleRenderer.material.Lerp(m_standardMaterial, m_cooldownMaterial, 0);
-        } else
+        }
+        else
         {
             m_capsuleRenderer.material.Lerp(m_standardMaterial, m_cooldownMaterial, m_attackTimer);
         }
-        
+
         if (m_targetList.Count > 0 && m_canFire)
         {
             Attack();

@@ -33,6 +33,12 @@ public class GameLogic : MonoBehaviour
     {
         DoCountdown();
     }
+    
+    //TODO: notify
+    public void UpdateEnemyCount(int pEnemiesLeftToSpawn)
+    {
+        SetWaveEnemyCount(pEnemiesLeftToSpawn);
+    }
 
     private void SetWaveEnemyCount(int pEnemyNumberInWave)
     {
@@ -72,11 +78,9 @@ public class GameLogic : MonoBehaviour
                 m_waveActive = true;
                 m_timer = timeBetweenRounds;
                 enemySpawner.ActivateWave();
+                SetWaveEnemyCount(enemySpawner.GetNumberOfEnemiesInWave());
             }
-        } else
-        {
-            SetWaveEnemyCount(enemySpawner.GetNumberOfEnemiesInWave());
-        }
+        } 
     }
 
     //TODO: notify

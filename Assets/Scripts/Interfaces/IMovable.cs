@@ -4,7 +4,8 @@ using UnityEngine;
 
 public interface IMovable 
 {
-    public float secondsPerTile { get; set; }
+    [SerializeField]
+    public float movementSpeed { get; set; }
     public List<TileEntity> path { get; set; }
     void MoveNext(int pCurrentIndex, float pTimeItTakes);
 }

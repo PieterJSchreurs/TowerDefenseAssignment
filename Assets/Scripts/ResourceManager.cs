@@ -10,7 +10,7 @@ public class ResourceManager : MonoBehaviour
 
     public TMP_Text resourceText;
 
-    private int currentResources;
+    private int m_currentResources;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,13 +19,13 @@ public class ResourceManager : MonoBehaviour
 
     private void SetResources(int pResources)
     {
-        currentResources = pResources;
-        resourceText.text = "Gold: " + currentResources;
+        m_currentResources = pResources;
+        resourceText.text = "Gold: " + m_currentResources;
     }
 
     public bool CanAfford(int pCost)
     {
-        if(pCost <= currentResources)
+        if(pCost <= m_currentResources)
         {
             return true;
         } else
@@ -38,12 +38,17 @@ public class ResourceManager : MonoBehaviour
     {
         if(CanAfford(pUpgradeCost))
         {
-            SetResources(currentResources - pUpgradeCost);
+            SetResources(m_currentResources - pUpgradeCost);
             return true;
         }
         else
         {
             return false;
         }
+    }
+
+    public void AddResources(int pResources)
+    {
+        SetResources(m_currentResources + pResources);
     }
 }
