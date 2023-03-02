@@ -4,15 +4,17 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>160</x>
-      <y>504</y>
+      <x>368</x>
+      <y>480</y>
       <w>168</w>
-      <h>80</h>
+      <h>104</h>
     </coordinates>
-    <panel_attributes>/Enemy/
+    <panel_attributes>&lt;&lt;Abstract&gt;&gt;
+/Enemy/
 --
-
-
+health: int
+tilePerSecond: int
+bounty: int
 --
 
 </panel_attributes>
@@ -21,8 +23,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>160</x>
-      <y>368</y>
+      <x>376</x>
+      <y>344</y>
       <w>168</w>
       <h>88</h>
     </coordinates>
@@ -39,8 +41,8 @@ Die()
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>360</x>
-      <y>368</y>
+      <x>568</x>
+      <y>344</y>
       <w>168</w>
       <h>88</h>
     </coordinates>
@@ -58,8 +60,8 @@ moveNext(currentIndex: int
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>240</x>
-      <y>448</y>
+      <x>456</x>
+      <y>424</y>
       <w>24</w>
       <h>72</h>
     </coordinates>
@@ -69,75 +71,41 @@ moveNext(currentIndex: int
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>240</x>
-      <y>448</y>
-      <w>224</w>
+      <x>456</x>
+      <y>424</y>
+      <w>216</w>
       <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>260.0;10.0;260.0;40.0;10.0;40.0;10.0;70.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>160</x>
-      <y>624</y>
-      <w>168</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>EnemyType1
---
-
-
---
-
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>368</x>
-      <y>624</y>
-      <w>168</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>EnemyType2
---
-
-
---
-
-</panel_attributes>
-    <additional_attributes/>
+    <additional_attributes>250.0;10.0;250.0;40.0;10.0;40.0;10.0;70.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>240</x>
+      <x>448</x>
       <y>576</y>
       <w>24</w>
-      <h>64</h>
+      <h>80</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+    <panel_attributes>lt=-&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>320</x>
-      <y>536</y>
+      <x>528</x>
+      <y>512</y>
       <w>144</w>
-      <h>104</h>
+      <h>144</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;160.0;10.0;160.0;110.0</additional_attributes>
+    <panel_attributes>lt=-&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;160.0;10.0;160.0;160.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>600</x>
-      <y>368</y>
+      <x>808</x>
+      <y>344</y>
       <w>168</w>
       <h>88</h>
     </coordinates>
@@ -155,8 +123,8 @@ tower: Tower
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>520</x>
-      <y>408</y>
+      <x>728</x>
+      <y>384</y>
       <w>96</w>
       <h>32</h>
     </coordinates>
@@ -168,8 +136,8 @@ m2=*</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>600</x>
-      <y>512</y>
+      <x>808</x>
+      <y>488</y>
       <w>168</w>
       <h>88</h>
     </coordinates>
@@ -185,8 +153,8 @@ m2=*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>672</x>
-      <y>448</y>
+      <x>880</x>
+      <y>424</y>
       <w>32</w>
       <h>80</h>
     </coordinates>
@@ -198,8 +166,8 @@ m2=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>600</x>
-      <y>240</y>
+      <x>808</x>
+      <y>216</y>
       <w>168</w>
       <h>96</h>
     </coordinates>
@@ -217,8 +185,8 @@ End
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>672</x>
-      <y>328</y>
+      <x>880</x>
+      <y>304</y>
       <w>24</w>
       <h>56</h>
     </coordinates>
@@ -228,8 +196,8 @@ End
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1032</x>
-      <y>448</y>
+      <x>1240</x>
+      <y>424</y>
       <w>24</w>
       <h>72</h>
     </coordinates>
@@ -239,8 +207,8 @@ End
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>952</x>
-      <y>368</y>
+      <x>1160</x>
+      <y>344</y>
       <w>168</w>
       <h>88</h>
     </coordinates>
@@ -256,8 +224,8 @@ End
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>952</x>
-      <y>504</y>
+      <x>1160</x>
+      <y>480</y>
       <w>168</w>
       <h>88</h>
     </coordinates>
@@ -273,8 +241,8 @@ End
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1112</x>
-      <y>408</y>
+      <x>1320</x>
+      <y>384</y>
       <w>120</w>
       <h>24</h>
     </coordinates>
@@ -284,8 +252,8 @@ End
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1216</x>
-      <y>368</y>
+      <x>1424</x>
+      <y>344</y>
       <w>168</w>
       <h>96</h>
     </coordinates>
@@ -302,8 +270,8 @@ Debuff
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>760</x>
-      <y>408</y>
+      <x>968</x>
+      <y>384</y>
       <w>208</w>
       <h>32</h>
     </coordinates>
@@ -311,5 +279,61 @@ Debuff
 m1=1
 m2=0.1</panel_attributes>
     <additional_attributes>10.0;10.0;240.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>168</x>
+      <y>640</y>
+      <w>168</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>SlowEnemy
+--
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>368</x>
+      <y>640</y>
+      <w>168</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>NormalEnemy
+--
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>576</x>
+      <y>640</y>
+      <w>168</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>FastEnemy
+--
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>240</x>
+      <y>512</y>
+      <w>144</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;</panel_attributes>
+    <additional_attributes>160.0;10.0;10.0;10.0;10.0;160.0</additional_attributes>
   </element>
 </diagram>
