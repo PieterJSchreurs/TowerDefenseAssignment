@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyEntity : MonoBehaviour
+public abstract class Enemy : MonoBehaviour
 {
     [SerializeField]
     public Healthbar healthBar;
-
-    [SerializeField]
-    public float movementSpeed { get; set; }
-    [SerializeField]
-    public int health { get; set; }
-    [SerializeField]
-    public int killReward = 5;
+    public abstract float MovementSpeed { get; set; }
+    public abstract int Health { get; set; }
+    public abstract int KillReward { get; set; }
 
     private float m_secondPerTile;
     private List<TileEntity> m_path;
@@ -23,16 +19,16 @@ public class EnemyEntity : MonoBehaviour
     private GameObject m_myGameObject;
     private ResourceManager m_resourceManager;
 
-    void Start()
+    void Awake()
     {
-        healthBar.SetMaxHealth(health);
+        healthBar.SetMaxHealth(Health);
         m_resourceManager = FindFirstObjectByType<ResourceManager>();
     }
       
     public void Die()
     {
-        m_resourceManager.AddResources(killReward);
-        Destroy(gameObject.transform.parent.gameObject);
+        m_resourceManager.AddResources(KillReward);
+        Destroy(m_myGameObject);
     }
 
     public float secondPerTile
@@ -49,9 +45,9 @@ public class EnemyEntity : MonoBehaviour
 
     public void TakeDamage(int pDamage)
     {
-        health -= pDamage;
-        healthBar.SetHealth(health);
-        if (health <= 0)
+        Health -= pDamage;
+        healthBar.SetHealth(Health);
+        if (Health <= 0)
         {
             Die();
         }

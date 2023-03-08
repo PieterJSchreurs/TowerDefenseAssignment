@@ -78,11 +78,11 @@ public class EnemySpawner : MonoBehaviour
         m_logic.UpdateEnemyCount(m_waveCount);
         m_currentPath = m_pathFinder.GeneratePath(); //Get last path if not changed.
         GameObject enemyGameObject = Instantiate(pEnemyPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-        EnemyEntity enemyEntity = enemyGameObject.GetComponentInChildren<EnemyEntity>();
-        enemyEntity.movementSpeed = 2.0f;
+        NormalEnemy enemyEntity = enemyGameObject.GetComponentInChildren<NormalEnemy>();
+        //enemyEntity.movementSpeed = 2.0f;
         enemyEntity.path = m_currentPath;
-        enemyEntity.health = 5;
-        enemyEntity.killReward = 5;
+        //enemyEntity.health = 5;
+        //enemyEntity.killReward = 5;
         enemyEntity.SetGameObject(enemyGameObject);
         enemyEntity.SetAllowedToMove(true);
     }

@@ -26,13 +26,11 @@ public class TowerEntity : MonoBehaviour
 
     private bool m_canFire = true;
     private float m_attackTimer = 0.0f;
-    private EnemyEntity m_enemyTarget;
+    private Enemy m_enemyTarget;
     private List<GameObject> m_targetList = new List<GameObject>();
 
     private TYPEOFATTACK m_typeOfAttack;
     private float lerp = 0.0f;
-
- 
 
     private void Awake()
     {
@@ -69,7 +67,7 @@ public class TowerEntity : MonoBehaviour
         {
             m_targetList.Remove(other.gameObject);
         }
-        if (other.gameObject.GetComponent<EnemyEntity>() == m_enemyTarget)
+        if (other.gameObject.GetComponent<Enemy>() == m_enemyTarget)
         {
             m_enemyTarget = null;
         }
@@ -105,7 +103,7 @@ public class TowerEntity : MonoBehaviour
         }
         if (m_enemyTarget == null && m_targetList.Count > 0)
         {
-            m_enemyTarget = m_targetList[0].GetComponent<EnemyEntity>();
+            m_enemyTarget = m_targetList[0].GetComponent<Enemy>();
         }
     }
 

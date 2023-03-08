@@ -154,6 +154,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enemyPrefabs:
   - {fileID: 5931306303363708442, guid: daca40638722fdc408173a7e11824aff, type: 3}
+  - {fileID: 5931306303363708442, guid: 06dac71d7f08ea9449d9fcccd48cce54, type: 3}
+  - {fileID: 5931306303363708442, guid: 22fea624cd407194ca69473529eed3d2, type: 3}
   m_pathFinder: {fileID: 2035293293}
   m_worldCreator: {fileID: 2035293291}
 --- !u!4 &16775797
