@@ -99,9 +99,9 @@ public class WorldCreator : MonoBehaviour
     {
         if (m_resourceManager.CanAfford(10))
         {
-            m_resourceManager.BuyUpgrade(10);
             if (m_selectedTileEntity != null && (m_selectedTileEntity.GetTileStatus() == TILESTATUS.OPEN || m_selectedTileEntity.GetTileStatus() == TILESTATUS.SELECTED))
             {
+                m_resourceManager.BuyUpgrade(10);
                 m_selectedTileEntity.BuildTower();
             }
         }

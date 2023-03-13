@@ -39,9 +39,9 @@ public class TileEntity : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             m_worldCreator.SelectTileEntity(this);
-            if (m_towerText != null)
+            if (m_towerText != null && m_tower != null)
             {
-               // m_towerText.text = "Tower info: \nDamage: " + m_tower.m_damage + "\nRange: " + m_tower.m_range + "\nSpeed: " + m_tower.m_shootingSpeed;
+               m_towerText.text = "Tower info: \nDamage: " + m_tower.GetDamage() + "\nRange: " + m_tower.GetRange() + "\nSpeed: " + m_tower.GetShootingSpeed();
             }
         }
         else if (Input.GetMouseButtonDown(1))

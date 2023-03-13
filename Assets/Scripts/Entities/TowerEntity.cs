@@ -44,6 +44,26 @@ public class TowerEntity : MonoBehaviour
 
     }
 
+    public int GetDamage()
+    {
+        return m_damage;
+    }
+
+    public int GetCost()
+    {
+        return m_cost;
+    }
+
+    public float GetRange()
+    {
+        return m_range;
+    }
+
+    public float GetShootingSpeed()
+    {
+        return m_shootingSpeed;
+    }
+
     //TODO: Check if onmouseover on child "Capsule" it's collider.
     private void OnMouseOver()
     {
