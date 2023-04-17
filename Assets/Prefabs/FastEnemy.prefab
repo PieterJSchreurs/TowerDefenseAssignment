@@ -365,7 +365,7 @@ MonoBehaviour:
   healthBar: {fileID: 8975698657254530447}
   movementSpeed: 4
   health: 3
-  killReward: 5
+  killReward: 3
 --- !u!1 &4792715803955018153
 GameObject:
   m_ObjectHideFlags: 0

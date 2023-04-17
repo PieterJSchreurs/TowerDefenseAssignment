@@ -15,19 +15,24 @@ public abstract class Enemy : MonoBehaviour
     private int m_currentIndex = 0;
     private IEnumerator m_coroutine;
     private bool m_coroutineRunning = false;
-    private bool m_allowedToMove = false;
     private GameObject m_myGameObject;
     private ResourceManager m_resourceManager;
+    private EnemySpawner m_enemySpawner;
 
     void Awake()
     {
-        healthBar.SetMaxHealth(Health);
+        if (healthBar != null)
+        {
+            healthBar.SetMaxHealth(Health);
+        }
+        m_enemySpawner = FindFirstObjectByType<EnemySpawner>();
         m_resourceManager = FindFirstObjectByType<ResourceManager>();
     }
-      
+
     public void Die()
     {
         m_resourceManager.AddResources(KillReward);
+        m_enemySpawner.NotifyDeath(this);
         Destroy(m_myGameObject);
     }
 
@@ -46,7 +51,10 @@ public abstract class Enemy : MonoBehaviour
     public void TakeDamage(int pDamage)
     {
         Health -= pDamage;
-        healthBar.SetHealth(Health);
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(Health);
+        }
         if (Health <= 0)
         {
             Die();
@@ -59,7 +67,7 @@ public abstract class Enemy : MonoBehaviour
         {
             if (!m_coroutineRunning)
             {
-                m_coroutine = MoveToNextTile(m_myGameObject, new Vector3(m_path[m_currentIndex + 1].m_gameObject.transform.position.x, 0, m_path[m_currentIndex + 1].m_gameObject.transform.position.z), 0.5f);
+                m_coroutine = MoveToNextTile(m_myGameObject, new Vector3(m_path[m_currentIndex + 1].m_gameObject.transform.position.x, 0, m_path[m_currentIndex + 1].m_gameObject.transform.position.z), (1.0f / MovementSpeed));
                 StartCoroutine(m_coroutine);
             }
         }
@@ -95,11 +103,6 @@ public abstract class Enemy : MonoBehaviour
         m_currentIndex++;
         pObjectToMove.transform.position = pEnd;
         m_coroutineRunning = false;
-    }
-
-    public void SetAllowedToMove(bool pAllowedToMove)
-    {
-        m_allowedToMove = pAllowedToMove;
     }
 
     public void SetGameObject(GameObject pMyGameObject)

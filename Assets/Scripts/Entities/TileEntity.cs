@@ -41,7 +41,7 @@ public class TileEntity : MonoBehaviour
             m_worldCreator.SelectTileEntity(this);
             if (m_towerText != null && m_tower != null)
             {
-               m_towerText.text = "Tower info: \nDamage: " + m_tower.GetDamage() + "\nRange: " + m_tower.GetRange() + "\nSpeed: " + m_tower.GetShootingSpeed();
+                m_towerText.text = "Tower info: \nDamage: " + m_tower.GetDamage() + "\nRange: " + m_tower.GetRange() + "\nSpeed: " + m_tower.GetShootingSpeed();
             }
         }
         else if (Input.GetMouseButtonDown(1))
@@ -72,7 +72,6 @@ public class TileEntity : MonoBehaviour
 
     public void SetTileStatus(TILESTATUS pTileStatus)
     {
-        Debug.Log("Setting tile status to " + pTileStatus);
         m_tileStatus = pTileStatus;
         ChangeColor();
     }

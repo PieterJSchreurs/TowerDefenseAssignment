@@ -12,7 +12,7 @@ public class SlowEnemy : Enemy
     public override int Health { get => health; set => health = value; }
     [SerializeField]
     private int killReward;
-    public override int KillReward { get => KillReward; set => killReward = value; }
+    public override int KillReward { get => killReward; set => killReward = value; }
     // Start is called before the first frame update
     void Start()
     {

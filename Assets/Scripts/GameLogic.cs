@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameLogic : MonoBehaviour
 {
     [SerializeField]
-    public int startingLives = 10, startingWaves = 2, timeBetweenRounds = 10;
+    public int startingLives = 10, startingWaves = 0, timeBetweenRounds = 10;
 
     [SerializeField]
     public TMP_Text liveText, waveText, timerText;
@@ -21,6 +21,7 @@ public class GameLogic : MonoBehaviour
 
     public void Start()
     {
+        startingWaves = enemySpawner.GetNumberOfWaves();
         timerText.enabled = true;
         m_timer = timeBetweenRounds;
         m_currentWave = startingWaves;
@@ -87,7 +88,13 @@ public class GameLogic : MonoBehaviour
     public void WaveCleared()
     {
         m_currentWave--;
+        if(m_currentWave <= 0)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+        }
         SetWaveNumber(startingWaves, m_currentWave);
+        m_waveActive = false;
+        m_timer = timeBetweenRounds;
     }
 
     //TODO: notify
