@@ -76,6 +76,19 @@ public class WorldCreator : MonoBehaviour
 
     public void SelectTileEntity(TileEntity pTileEntity)
     {
+
+        if (m_selectedTileEntity != null)
+        {
+            if (m_selectedTileEntity.GetTowerEntity() != null)
+            {
+                m_selectedTileEntity.SetTileStatus(TILESTATUS.OCCUPIED);
+            }
+            else
+            {
+                m_selectedTileEntity.SetTileStatus(TILESTATUS.OPEN);
+            }
+        }
+       
         m_selectedTileEntity = pTileEntity;
         m_selectedTileEntity.SetTileStatus(TILESTATUS.SELECTED);
     }
