@@ -35,7 +35,7 @@ public class TowerEntity : MonoBehaviour
     private void Awake()
     {
 
-       
+
         if (m_sphereColider != null)
         {
             m_sphereColider.radius = m_range / 2;
@@ -103,10 +103,24 @@ public class TowerEntity : MonoBehaviour
         {
             m_capsuleRenderer.material.Lerp(m_standardMaterial, m_cooldownMaterial, m_attackTimer);
         }
-
-        if (m_targetList.Count > 0 && m_canFire)
+        if (m_targetList.FirstOrDefault() == null && m_targetList.Count > 0)
         {
-            Attack();
+            m_targetList.RemoveAt(0);
+        }
+        if (m_enemyTarget == null && m_targetList.Count > 0)
+        {
+            m_enemyTarget = m_targetList[0].GetComponent<Enemy>();
+        }
+        if (m_targetList.Count > 0)
+        {
+            var lookPos = m_targetList.FirstOrDefault().transform.position - transform.position;
+            lookPos.y = 0;
+            var rotation = Quaternion.LookRotation(lookPos);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 1);
+            if (m_canFire)
+            {
+                Attack();
+            }
         }
         if (!m_canFire)
         {
@@ -117,14 +131,8 @@ public class TowerEntity : MonoBehaviour
                 lerp = 0.0f;
             }
         }
-        if (m_targetList.FirstOrDefault() == null && m_targetList.Count > 0)
-        {
-            m_targetList.RemoveAt(0);
-        }
-        if (m_enemyTarget == null && m_targetList.Count > 0)
-        {
-            m_enemyTarget = m_targetList[0].GetComponent<Enemy>();
-        }
+
+
     }
 
     private void Attack()
