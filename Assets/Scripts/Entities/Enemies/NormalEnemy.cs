@@ -8,8 +8,8 @@ public class NormalEnemy : Enemy
     private float movementSpeed;
     public override float MovementSpeed { get => movementSpeed; set => movementSpeed = value; }
     [SerializeField]
-    private int health;
-    public override int Health { get => health; set => health = value; }
+    private float health;
+    public override float Health { get => health; set => health = value; }
     [SerializeField]
     private int killReward;
     public override int KillReward { get => killReward; set => killReward = value; }

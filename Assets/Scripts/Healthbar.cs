@@ -12,13 +12,13 @@ public class Healthbar : MonoBehaviour
     [SerializeField]
     public RawImage m_fill;
 
-    public void SetMaxHealth(int pHealth)
+    public void SetMaxHealth(float pHealth)
     {
         m_slider.maxValue = pHealth;
         m_slider.value = pHealth;
     }
 
-    public void SetHealth(int pHealth)
+    public void SetHealth(float pHealth)
     {
         m_slider.value = pHealth;
         m_fill.color = m_gradient.Evaluate(m_slider.normalizedValue);

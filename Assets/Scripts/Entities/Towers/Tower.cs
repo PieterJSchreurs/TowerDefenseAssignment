@@ -4,16 +4,16 @@ using UnityEngine;
 using System.Linq;
 using System;
 
-public class TowerEntity : MonoBehaviour
+public abstract class Tower : MonoBehaviour
 {
-    [SerializeField]
-    private float m_range, m_shootingSpeed;
+    public abstract float Range { get; set; }
+    public abstract float ShootingSpeed { get; set; }
+
+    public abstract int Cost { get; set; }
+    public abstract float Damage { get; set; }
 
     [SerializeField]
     private SphereCollider m_sphereColider;
-
-    [SerializeField]
-    private int m_cost, m_damage;
 
     [SerializeField]
     private GameObject m_debugSphere;
@@ -26,42 +26,17 @@ public class TowerEntity : MonoBehaviour
 
     private bool m_canFire = true;
     private float m_attackTimer = 0.0f;
-    private Enemy m_enemyTarget;
-    private List<GameObject> m_targetList = new List<GameObject>();
-
-    private TYPEOFATTACK m_typeOfAttack;
-    private float lerp = 0.0f;
+    private protected Enemy m_enemyTarget;
+    private protected List<Enemy> m_targetList = new List<Enemy>();
+    //private TYPEOFATTACK m_typeOfAttack;
 
     private void Awake()
     {
-
-
         if (m_sphereColider != null)
         {
-            m_sphereColider.radius = m_range / 2;
-            m_debugSphere.transform.localScale = new Vector3(m_range, m_range, m_range);
+            m_sphereColider.radius = Range / 2;
+            m_debugSphere.transform.localScale = new Vector3(Range, Range, Range);
         }
-
-    }
-
-    public int GetDamage()
-    {
-        return m_damage;
-    }
-
-    public int GetCost()
-    {
-        return m_cost;
-    }
-
-    public float GetRange()
-    {
-        return m_range;
-    }
-
-    public float GetShootingSpeed()
-    {
-        return m_shootingSpeed;
     }
 
     //TODO: Check if onmouseover on child "Capsule" it's collider.
@@ -73,21 +48,21 @@ public class TowerEntity : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    public virtual void OnTriggerEnter(Collider pOther)
     {
-        if (other.tag == "Enemy")
+        if (pOther.tag == "Enemy")
         {
-            m_targetList.Add(other.gameObject);
+            m_targetList.Add(pOther.gameObject.GetComponent<Enemy>());
         }
     }
 
-    void OnTriggerExit(Collider other)
+    public virtual void OnTriggerExit(Collider pOther)
     {
-        if (other.tag == "Enemy" && m_targetList.Contains(other.gameObject))
+        if (pOther.tag == "Enemy" && m_targetList.Contains(pOther.gameObject.GetComponent<Enemy>()))
         {
-            m_targetList.Remove(other.gameObject);
+            m_targetList.Remove(pOther.gameObject.GetComponent<Enemy>());
         }
-        if (other.gameObject.GetComponent<Enemy>() == m_enemyTarget)
+        if (pOther.gameObject.GetComponent<Enemy>() == m_enemyTarget)
         {
             m_enemyTarget = null;
         }
@@ -125,24 +100,22 @@ public class TowerEntity : MonoBehaviour
         if (!m_canFire)
         {
             m_attackTimer += Time.deltaTime;
-            if (m_attackTimer >= m_shootingSpeed)
+            if (m_attackTimer >= ShootingSpeed)
             {
                 m_canFire = true;
-                lerp = 0.0f;
             }
         }
-
-
     }
 
-    private void Attack()
+    public virtual void Attack()
     {
         if (m_enemyTarget != null)
         {
-            m_attackTimer = 0.0f;
-            m_enemyTarget.TakeDamage(m_damage);
-            m_canFire = false;
+            m_enemyTarget.TakeDamage(Damage);
+
         }
+        m_attackTimer = 0.0f;
+        m_canFire = false;
     }
 }
 

@@ -17,6 +17,8 @@ public class WorldCreator : MonoBehaviour
     private List<GameObject> m_gameObjectTiles = new List<GameObject>();
     private TileEntity m_selectedTileEntity;
     private ResourceManager m_resourceManager;
+    [SerializeField]
+    private GameObject m_singleTargetTower, m_debuffTower, m_multiShotTower;
 
 
     // Start is called before the first frame update
@@ -88,34 +90,35 @@ public class WorldCreator : MonoBehaviour
                 m_selectedTileEntity.SetTileStatus(TILESTATUS.OPEN);
             }
         }
-       
+
         m_selectedTileEntity = pTileEntity;
         m_selectedTileEntity.SetTileStatus(TILESTATUS.SELECTED);
     }
 
     public void ButtonTowerOneClicked()
     {
-        BuildTower();
+        BuildTower(m_singleTargetTower);
     }
 
     public void ButtonTowerTwoClicked()
     {
-        BuildTower();
+        BuildTower(m_debuffTower);
     }
 
     public void ButtonTowerThreeClicked()
     {
-        BuildTower();
+        BuildTower(m_multiShotTower);
     }
 
-    public void BuildTower()
+    public void BuildTower(GameObject pTowerGameObject)
     {
-        if (m_resourceManager.CanAfford(10))
+        Tower tower = pTowerGameObject.GetComponent<Tower>();
+        if (m_resourceManager.CanAfford(tower.Cost))
         {
             if (m_selectedTileEntity != null && (m_selectedTileEntity.GetTileStatus() == TILESTATUS.OPEN || m_selectedTileEntity.GetTileStatus() == TILESTATUS.SELECTED))
             {
-                m_resourceManager.BuyUpgrade(10);
-                m_selectedTileEntity.BuildTower();
+                m_resourceManager.BuyUpgrade(tower.Cost);
+                m_selectedTileEntity.BuildTower(pTowerGameObject);
             }
         }
     }

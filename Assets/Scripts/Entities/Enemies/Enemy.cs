@@ -7,7 +7,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField]
     public Healthbar healthBar;
     public abstract float MovementSpeed { get; set; }
-    public abstract int Health { get; set; }
+    public abstract float Health { get; set; }
     public abstract int KillReward { get; set; }
 
     private float m_secondPerTile;
@@ -18,6 +18,7 @@ public abstract class Enemy : MonoBehaviour
     private GameObject m_myGameObject;
     private ResourceManager m_resourceManager;
     private EnemySpawner m_enemySpawner;
+    private STATUS m_status;
 
     void Awake()
     {
@@ -48,7 +49,7 @@ public abstract class Enemy : MonoBehaviour
         set { m_path = value; }
     }
 
-    public void TakeDamage(int pDamage)
+    public void TakeDamage(float pDamage)
     {
         Health -= pDamage;
         if (healthBar != null)
@@ -67,7 +68,12 @@ public abstract class Enemy : MonoBehaviour
         {
             if (!m_coroutineRunning)
             {
-                m_coroutine = MoveToNextTile(m_myGameObject, new Vector3(m_path[m_currentIndex + 1].m_gameObject.transform.position.x, 0, m_path[m_currentIndex + 1].m_gameObject.transform.position.z), (1.0f / MovementSpeed));
+                float effectiveMovementSpeed = MovementSpeed;
+                if(m_status == STATUS.SLOWED)
+                {
+                    effectiveMovementSpeed = effectiveMovementSpeed / 2;
+                }
+                m_coroutine = MoveToNextTile(m_myGameObject, new Vector3(m_path[m_currentIndex + 1].m_gameObject.transform.position.x, 0, m_path[m_currentIndex + 1].m_gameObject.transform.position.z), (1.0f / effectiveMovementSpeed));
                 StartCoroutine(m_coroutine);
             }
         }
@@ -108,5 +114,15 @@ public abstract class Enemy : MonoBehaviour
     public void SetGameObject(GameObject pMyGameObject)
     {
         m_myGameObject = pMyGameObject;
+    }
+    public void AffectedByStatus(STATUS pStatus)
+    {
+        m_status = pStatus;
+    }
+
+    public enum STATUS
+    {
+        NORMAL = 0,
+        SLOWED = 1
     }
 }

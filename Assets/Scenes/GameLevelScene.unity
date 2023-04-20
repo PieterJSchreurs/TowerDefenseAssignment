@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.2
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.19644397, g: 0.22078478, b: 0.26182646, a: 0.2}
+  m_IndirectSpecularColor: {r: 0.19644395, g: 0.22078449, b: 0.26182547, a: 0.2}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -175,6 +175,7 @@ MonoBehaviour:
     slowEnemiesCount: 0
   pathFinder: {fileID: 16775798}
   worldCreator: {fileID: 2035293291}
+  m_secondsBetweenSpawn: 2
 --- !u!4 &16775797
 Transform:
   m_ObjectHideFlags: 0
@@ -1450,7 +1451,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2035293291}
         m_TargetAssemblyTypeName: WorldCreator, Assembly-CSharp
-        m_MethodName: ButtonTowerTwoClicked
+        m_MethodName: ButtonTowerThreeClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1533,7 +1534,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100, y: -25}
+  m_AnchoredPosition: {x: 544, y: -116}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1667111830
@@ -2129,6 +2130,9 @@ MonoBehaviour:
   m_cameraObject: {fileID: 963194225}
   m_offsetBetweenTiles: 0.1
   m_pathFinder: {fileID: 0}
+  m_singleTargetTower: {fileID: 5543635655155796003, guid: c43c85b8753c53546b933c0c5ae6f3e4, type: 3}
+  m_debuffTower: {fileID: 5543635655155796003, guid: c5d2b38ed09547b45a1428c29d409d70, type: 3}
+  m_multiShotTower: {fileID: 5543635655155796003, guid: 5073e8056f1facf4989dbf5b43bf2351, type: 3}
 --- !u!4 &2035293292
 Transform:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ public class TileEntity : MonoBehaviour
     [SerializeField]
     public GameObject m_gameObject;
     [SerializeField]
-    private GameObject m_towerPrefab;
+    private GameObject m_singleTargetTower, m_debuffTower, m_multiShotTower;
 
     private TILESTATUS m_tileStatus = TILESTATUS.OPEN;
     private Renderer m_renderer;
@@ -22,7 +22,7 @@ public class TileEntity : MonoBehaviour
     public TileEntity m_parent;
     public List<TileEntity> m_neighbours = new List<TileEntity>();
     private WorldCreator m_worldCreator;
-    private TowerEntity m_tower;
+    private Tower m_currentBuiltTower;
     private TMP_Text m_towerText;
 
 
@@ -39,9 +39,9 @@ public class TileEntity : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             m_worldCreator.SelectTileEntity(this);
-            if (m_towerText != null && m_tower != null)
+            if (m_towerText != null && m_currentBuiltTower != null)
             {
-                m_towerText.text = "Tower info: \nDamage: " + m_tower.GetDamage() + "\nRange: " + m_tower.GetRange() + "\nSpeed: " + m_tower.GetShootingSpeed();
+                m_towerText.text = "Tower info: \nDamage: " + m_currentBuiltTower.Damage + "\nRange: " + m_currentBuiltTower.Range + "\nSpeed: " + m_currentBuiltTower.ShootingSpeed;
             }
         }
         else if (Input.GetMouseButtonDown(1))
@@ -57,17 +57,17 @@ public class TileEntity : MonoBehaviour
         }
     }
 
-    public void BuildTower()
+    public void BuildTower(GameObject pTower)
     {
-        GameObject tower = Instantiate(m_towerPrefab, new Vector3(m_gameObject.transform.position.x, 0, m_gameObject.transform.position.z), Quaternion.identity);
-        tower.transform.SetParent(m_gameObject.transform);
-        m_tower = tower.GetComponent<TowerEntity>();
+        GameObject instantiatedTower = Instantiate(pTower, new Vector3(m_gameObject.transform.position.x, 0, m_gameObject.transform.position.z), Quaternion.identity);
+        instantiatedTower.transform.SetParent(m_gameObject.transform);
+        m_currentBuiltTower = instantiatedTower.GetComponent<Tower>();
         SetTileStatus(TILESTATUS.OCCUPIED);
     }
 
-    public TowerEntity GetTowerEntity()
+    public Tower GetTowerEntity()
     {
-        return m_tower;
+        return m_currentBuiltTower;
     }
 
     public void SetTileStatus(TILESTATUS pTileStatus)

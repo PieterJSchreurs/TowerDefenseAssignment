@@ -15,12 +15,15 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     public WorldCreator worldCreator;
 
+    [SerializeField]
+    private float m_secondsBetweenSpawn = 1.0f;
+
     private List<GameObject> m_gameTiles;
     private List<TileEntity> m_currentPath;
 
     private bool m_waveActive = false;
     private int m_currentEnemiesInWaveCount = 0;
-    private float m_secondsBetweenSpawn = 2.0f, timer = 0;
+    private float timer = 0;
     private GameLogic m_logic;
     private List<Enemy> m_currentAliveEnemies = new List<Enemy>();
     private GameLogic m_gameLogic;
@@ -112,18 +115,15 @@ public class EnemySpawner : MonoBehaviour
         var type = pEnemyPrefab.GetComponentInChildren<Enemy>();
         if (type.GetType() == typeof(NormalEnemy))
         {
-            waveList[0] = new Wave(waveInformation.normalEnemiesCount- 1, waveInformation.fastEnemiesCount, waveInformation.slowEnemiesCount);
-            Debug.Log("Is normal");
+            waveList[0] = new Wave(waveInformation.normalEnemiesCount - 1, waveInformation.fastEnemiesCount, waveInformation.slowEnemiesCount);
         }
         if (type.GetType() == typeof(FastEnemy))
         {
-            waveList[0] = new Wave(waveInformation.normalEnemiesCount, waveInformation.fastEnemiesCount- 1, waveInformation.slowEnemiesCount);
-            Debug.Log("Is fast");
+            waveList[0] = new Wave(waveInformation.normalEnemiesCount, waveInformation.fastEnemiesCount - 1, waveInformation.slowEnemiesCount);
         }
         if (type.GetType() == typeof(SlowEnemy))
         {
-            waveList[0] = new Wave(waveInformation.normalEnemiesCount, waveInformation.fastEnemiesCount, waveInformation.slowEnemiesCount- 1);
-            Debug.Log("Is slow");
+            waveList[0] = new Wave(waveInformation.normalEnemiesCount, waveInformation.fastEnemiesCount, waveInformation.slowEnemiesCount - 1);
         }
         m_currentPath = pathFinder.GeneratePath(); //Get last path if not changed.
         GameObject enemyGameObject = Instantiate(pEnemyPrefab, new Vector3(0, 0, 0), Quaternion.identity);

@@ -6,7 +6,7 @@ using TMPro;
 public class ResourceManager : MonoBehaviour
 {
     [SerializeField]
-    public int startingResources;
+    public int startingResources = 50;
 
     public TMP_Text resourceText;
 

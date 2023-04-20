@@ -205,10 +205,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5543635655155796031}
   - component: {fileID: 5543635655155796028}
-  - component: {fileID: 3590949046758419858}
   - component: {fileID: 2886295699132345874}
+  - component: {fileID: 4596138284210438360}
   m_Layer: 2
-  m_Name: Tower
+  m_Name: SingleTargetTower
   m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -240,27 +240,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5543635655155796003}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &3590949046758419858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5543635655155796003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d77fd0ae7505ac04f89dc9e3f6820990, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_range: 5
-  m_shootingSpeed: 1
-  m_sphereColider: {fileID: 2886295699132345874}
-  m_cost: 0
-  m_damage: 1
-  m_debugSphere: {fileID: 617120882344541108}
-  m_capsuleRenderer: {fileID: 5064421592161133570}
-  m_standardMaterial: {fileID: 2100000, guid: 7207860971e8478479a6185ce15f9486, type: 2}
-  m_cooldownMaterial: {fileID: 2100000, guid: 15b4f098a9587c0489c0d0269fedf59e, type: 2}
 --- !u!135 &2886295699132345874
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -274,6 +253,27 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4596138284210438360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5543635655155796003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11d50ed296bb48349aa16a131b0a31f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_sphereColider: {fileID: 2886295699132345874}
+  m_debugSphere: {fileID: 617120882344541108}
+  m_capsuleRenderer: {fileID: 5064421592161133570}
+  m_standardMaterial: {fileID: 2100000, guid: 7207860971e8478479a6185ce15f9486, type: 2}
+  m_cooldownMaterial: {fileID: 2100000, guid: 15b4f098a9587c0489c0d0269fedf59e, type: 2}
+  m_cost: 10
+  m_damage: 1
+  m_range: 4
+  m_shootingSpeed: 1
 --- !u!1 &5543635655989645829
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,17 +5,12 @@ using UnityEngine;
 public class FastEnemy : Enemy
 {
     [SerializeField]
-    private float movementSpeed;
-    public override float MovementSpeed { get => movementSpeed; set => movementSpeed = value; }
+    private float m_movementSpeed;
+    public override float MovementSpeed { get => m_movementSpeed; set => m_movementSpeed = value; }
     [SerializeField]
-    private int health;
-    public override int Health { get => health; set => health = value; }
+    private float m_health;
+    public override float Health { get => m_health; set => m_health = value; }
     [SerializeField]
-    private int killReward;
-    public override int KillReward { get => killReward; set => killReward = value; }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private int m_killReward;
+    public override int KillReward { get => m_killReward; set => m_killReward = value; }
 }
