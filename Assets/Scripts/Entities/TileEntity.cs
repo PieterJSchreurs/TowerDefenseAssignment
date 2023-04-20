@@ -70,36 +70,14 @@ public class TileEntity : MonoBehaviour
 
     private void ChangeColor()
     {
-        m_renderer.material.SetColor("_Color", m_tileState.tileColor);
-        //if (m_gameObject == null)
-        //{
-        //    m_gameObject = GetComponent<GameObject>();
-        //}
-        //if (m_renderer == null)
-        //{
-        //    m_renderer = m_gameObject.GetComponent<Renderer>();
-        //}
-        //switch (m_tileStatus)
-        //{
-        //    case TILESTATUS.OPEN:
-        //        m_renderer.material.SetColor("_Color", Color.white);
-        //        break;
-        //    case TILESTATUS.OCCUPIED:
-        //        m_renderer.material.SetColor("_Color", Color.blue);
-        //        break;
-        //    case TILESTATUS.START:
-        //        m_renderer.material.SetColor("_Color", Color.green);
-        //        break;
-        //    case TILESTATUS.END:
-        //        m_renderer.material.SetColor("_Color", Color.red);
-        //        break;
-        //    case TILESTATUS.WALKINGPATH:
-        //        m_renderer.material.SetColor("_Color", Color.grey);
-        //        break;
-        //    case TILESTATUS.SELECTED:
-        //        m_renderer.material.SetColor("_Color", Color.cyan);
-        //        break;
-        //}
+        if (m_renderer != null && m_tileState != null)
+        {
+            m_renderer.material.SetColor("_Color", m_tileState.tileColor);
+        }
+        else
+        {
+            throw new System.Exception("Renderer or tilestatus invalid");
+        }
     }
 
 
@@ -110,7 +88,7 @@ public class TileEntity : MonoBehaviour
         {
             for (int i = 0; i < m_neighbourTiles.Count; i++)
             {
-                if (!m_neighbourTiles[i].m_visited)//GetTileStatus() != TILESTATUS.OCCUPIED)
+                if (!m_neighbourTiles[i].m_visited)
                 {
                     neighbours.Add(m_neighbourTiles[i]);
                 }

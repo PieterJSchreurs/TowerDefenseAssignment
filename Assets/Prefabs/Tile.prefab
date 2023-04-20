@@ -118,6 +118,14 @@ MonoBehaviour:
   m_xCoordinate: 0
   m_yCoordinate: 0
   m_distance: 99
+  m_tileState: {fileID: 0}
   m_visited: 0
   m_parent: {fileID: 0}
-  m_neighbours: []
+  m_renderer: {fileID: 0}
+  m_neighbourTiles: []
+  tileStateOpen: {fileID: 11400000, guid: eb9638d1bf7e4bf43bdf80aaf758a338, type: 2}
+  tileStateOccupied: {fileID: 11400000, guid: bec3e0d5edddb70419d5e9c14ab54bf2, type: 2}
+  tileStatePath: {fileID: 11400000, guid: 43a39cbc6e49eed4590af27a390e88b5, type: 2}
+  tileStateSelected: {fileID: 11400000, guid: 96c4023ec20ae3a44948c53f655d36f0, type: 2}
+  tileStateStart: {fileID: 11400000, guid: 95e3370d8eb7ba5449e4b2a7cc142aaf, type: 2}
+  tileStateEnd: {fileID: 11400000, guid: 637519e2ceb0e6d47a1fb312210e5365, type: 2}

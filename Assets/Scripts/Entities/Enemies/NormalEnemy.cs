@@ -13,9 +13,4 @@ public class NormalEnemy : Enemy
     [SerializeField]
     private int killReward;
     public override int KillReward { get => killReward; set => killReward = value; }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 }
