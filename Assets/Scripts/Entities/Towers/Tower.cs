@@ -118,5 +118,3 @@ public abstract class Tower : MonoBehaviour
         m_canFire = false;
     }
 }
-
-public enum TYPEOFATTACK { SingleTarget = 0, AreaOfEffect = 1, Debuff = 2 }

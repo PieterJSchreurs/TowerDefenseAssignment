@@ -20,6 +20,10 @@ public class WorldCreator : MonoBehaviour
     [SerializeField]
     private GameObject m_singleTargetTower, m_debuffTower, m_multiShotTower;
 
+    [SerializeField]
+    public TileState tileStateOpen, tileStateOccupied, tileStatePath, tileStateSelected, tileStateStart, tileStateEnd;
+
+
 
     // Start is called before the first frame update
     void Awake()
@@ -51,9 +55,9 @@ public class WorldCreator : MonoBehaviour
                 m_tileEntitiesWorldArray[i, j].m_visited = false;
                 m_tileEntitiesWorldArray[i, j].m_parent = null;
                 m_tileEntitiesWorldArray[i, j].m_distance = 99;
-                if (m_tileEntitiesWorldArray[i, j].GetTileStatus() == TILESTATUS.WALKINGPATH)
+                if (m_tileEntitiesWorldArray[i, j].m_tileState == tileStatePath)
                 {
-                    m_tileEntitiesWorldArray[i, j].SetTileStatus(TILESTATUS.OPEN);
+                    m_tileEntitiesWorldArray[i, j].SetTileStatus(tileStateOpen);
                 }
             }
         }
@@ -83,16 +87,16 @@ public class WorldCreator : MonoBehaviour
         {
             if (m_selectedTileEntity.GetTowerEntity() != null)
             {
-                m_selectedTileEntity.SetTileStatus(TILESTATUS.OCCUPIED);
+                m_selectedTileEntity.SetTileStatus(tileStateOccupied);
             }
             else
             {
-                m_selectedTileEntity.SetTileStatus(TILESTATUS.OPEN);
+                m_selectedTileEntity.SetTileStatus(tileStateOpen);
             }
         }
 
         m_selectedTileEntity = pTileEntity;
-        m_selectedTileEntity.SetTileStatus(TILESTATUS.SELECTED);
+        m_selectedTileEntity.SetTileStatus(tileStateSelected);
     }
 
     public void ButtonTowerOneClicked()
@@ -115,7 +119,7 @@ public class WorldCreator : MonoBehaviour
         Tower tower = pTowerGameObject.GetComponent<Tower>();
         if (m_resourceManager.CanAfford(tower.Cost))
         {
-            if (m_selectedTileEntity != null && (m_selectedTileEntity.GetTileStatus() == TILESTATUS.OPEN || m_selectedTileEntity.GetTileStatus() == TILESTATUS.SELECTED))
+            if (m_selectedTileEntity != null && m_selectedTileEntity.m_tileState.canBuildOnTile)
             {
                 m_resourceManager.BuyUpgrade(tower.Cost);
                 m_selectedTileEntity.BuildTower(pTowerGameObject);
@@ -145,16 +149,16 @@ public class WorldCreator : MonoBehaviour
                 TileEntity tileEntity = tileGameObject.GetComponent<TileEntity>();
                 tileEntity.m_xCoordinate = i;
                 tileEntity.m_yCoordinate = j;
-                tileEntity.SetTileStatus(TILESTATUS.OPEN);
+                tileEntity.SetTileStatus(tileStateOpen);
                 m_gameObjectTiles.Add(tileGameObject);
 
                 if (i == 0 && j == 0)
                 {
-                    tileEntity.SetTileStatus(TILESTATUS.START);
+                    tileEntity.SetTileStatus(tileStateStart);
                 }
                 if (i == m_columns - 1 && j == m_rows - 1)
                 {
-                    tileEntity.SetTileStatus(TILESTATUS.END);
+                    tileEntity.SetTileStatus(tileStateEnd);
                 }
 
                 m_tileEntitiesWorldArray[i, j] = tileEntity;
@@ -168,19 +172,19 @@ public class WorldCreator : MonoBehaviour
         {
             if (pTargetEntity.m_xCoordinate > 0)
             {
-                pTargetEntity.m_neighbours.Add(pTileList[pTargetEntity.m_xCoordinate - 1, pTargetEntity.m_yCoordinate]);
+                pTargetEntity.m_neighbourTiles.Add(pTileList[pTargetEntity.m_xCoordinate - 1, pTargetEntity.m_yCoordinate]);
             }
             if (pTargetEntity.m_xCoordinate < m_columns - 1)
             {
-                pTargetEntity.m_neighbours.Add(pTileList[pTargetEntity.m_xCoordinate + 1, pTargetEntity.m_yCoordinate]);
+                pTargetEntity.m_neighbourTiles.Add(pTileList[pTargetEntity.m_xCoordinate + 1, pTargetEntity.m_yCoordinate]);
             }
             if (pTargetEntity.m_yCoordinate > 0)
             {
-                pTargetEntity.m_neighbours.Add(pTileList[pTargetEntity.m_xCoordinate, pTargetEntity.m_yCoordinate - 1]);
+                pTargetEntity.m_neighbourTiles.Add(pTileList[pTargetEntity.m_xCoordinate, pTargetEntity.m_yCoordinate - 1]);
             }
             if (pTargetEntity.m_yCoordinate < m_rows - 1)
             {
-                pTargetEntity.m_neighbours.Add(pTileList[pTargetEntity.m_xCoordinate, pTargetEntity.m_yCoordinate + 1]);
+                pTargetEntity.m_neighbourTiles.Add(pTileList[pTargetEntity.m_xCoordinate, pTargetEntity.m_yCoordinate + 1]);
             }
         }
     }

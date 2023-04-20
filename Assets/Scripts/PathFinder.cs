@@ -8,6 +8,8 @@ public class PathFinder : MonoBehaviour
     [SerializeField]
     private WorldCreator m_worldCreator;
 
+    [SerializeField]
+    public TileState tileStatePath;
     private PriorityQueue m_priorityQueue;
     private class PriorityQueue
     {
@@ -75,7 +77,7 @@ public class PathFinder : MonoBehaviour
                 selectedCoordinate = selectedCoordinate.m_parent;
                 if (selectedCoordinate != startNode && selectedCoordinate != endNode)
                 {
-                    selectedCoordinate.SetTileStatus(TILESTATUS.WALKINGPATH);
+                    selectedCoordinate.SetTileStatus(tileStatePath);
                 }
             }
             coordinateList.Add(selectedCoordinate);
@@ -85,8 +87,6 @@ public class PathFinder : MonoBehaviour
         {
             Debug.Log("No path");
         }
-
-
         return coordinateList;
     }
 

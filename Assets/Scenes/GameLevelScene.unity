@@ -175,7 +175,7 @@ MonoBehaviour:
     slowEnemiesCount: 0
   pathFinder: {fileID: 16775798}
   worldCreator: {fileID: 2035293291}
-  m_secondsBetweenSpawn: 2
+  m_secondsBetweenSpawn: 0.1
 --- !u!4 &16775797
 Transform:
   m_ObjectHideFlags: 0
@@ -204,6 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_worldCreator: {fileID: 2035293291}
+  tileStatePath: {fileID: 0}
 --- !u!1 &38711247
 GameObject:
   m_ObjectHideFlags: 0
@@ -2133,6 +2134,12 @@ MonoBehaviour:
   m_singleTargetTower: {fileID: 5543635655155796003, guid: c43c85b8753c53546b933c0c5ae6f3e4, type: 3}
   m_debuffTower: {fileID: 5543635655155796003, guid: c5d2b38ed09547b45a1428c29d409d70, type: 3}
   m_multiShotTower: {fileID: 5543635655155796003, guid: 5073e8056f1facf4989dbf5b43bf2351, type: 3}
+  tileStateOpen: {fileID: 11400000, guid: eb9638d1bf7e4bf43bdf80aaf758a338, type: 2}
+  tileStateOccupied: {fileID: 11400000, guid: bec3e0d5edddb70419d5e9c14ab54bf2, type: 2}
+  tileStatePath: {fileID: 11400000, guid: 43a39cbc6e49eed4590af27a390e88b5, type: 2}
+  tileStateSelected: {fileID: 11400000, guid: 96c4023ec20ae3a44948c53f655d36f0, type: 2}
+  tileStateStart: {fileID: 11400000, guid: 95e3370d8eb7ba5449e4b2a7cc142aaf, type: 2}
+  tileStateEnd: {fileID: 11400000, guid: 637519e2ceb0e6d47a1fb312210e5365, type: 2}
 --- !u!4 &2035293292
 Transform:
   m_ObjectHideFlags: 0

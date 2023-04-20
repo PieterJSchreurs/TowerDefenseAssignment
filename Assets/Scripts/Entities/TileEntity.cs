@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+[RequireComponent(typeof(Renderer))]
 public class TileEntity : MonoBehaviour
 {
     [SerializeField]
@@ -12,24 +13,26 @@ public class TileEntity : MonoBehaviour
     [SerializeField]
     private GameObject m_singleTargetTower, m_debuffTower, m_multiShotTower;
 
-    private TILESTATUS m_tileStatus = TILESTATUS.OPEN;
-    private Renderer m_renderer;
-
-    public int m_xCoordinate;
-    public int m_yCoordinate;
+    public int m_xCoordinate, m_yCoordinate;
     public float m_distance = 99;
+
+    public TileState m_tileState;
+
     public bool m_visited = false;
     public TileEntity m_parent;
-    public List<TileEntity> m_neighbours = new List<TileEntity>();
+    public Renderer m_renderer;
+    public List<TileEntity> m_neighbourTiles = new List<TileEntity>();
     private WorldCreator m_worldCreator;
     private Tower m_currentBuiltTower;
     private TMP_Text m_towerText;
 
+    [SerializeField]
+    public TileState tileStateOpen, tileStateOccupied, tileStatePath, tileStateSelected, tileStateStart, tileStateEnd;
+
 
     public void Awake()
     {
-        m_gameObject = gameObject;
-        m_renderer = m_gameObject.GetComponent<Renderer>();
+        m_renderer = gameObject.GetComponent<Renderer>();
         m_worldCreator = FindAnyObjectByType<WorldCreator>();
         m_towerText = GameObject.FindWithTag("TowerText").GetComponent<TMP_Text>();
     }
@@ -44,25 +47,14 @@ public class TileEntity : MonoBehaviour
                 m_towerText.text = "Tower info: \nDamage: " + m_currentBuiltTower.Damage + "\nRange: " + m_currentBuiltTower.Range + "\nSpeed: " + m_currentBuiltTower.ShootingSpeed;
             }
         }
-        else if (Input.GetMouseButtonDown(1))
-        {
-            if (GetTileStatus() != TILESTATUS.OCCUPIED)
-            {
-                SetTileStatus(TILESTATUS.OCCUPIED);
-            }
-            else
-            {
-                SetTileStatus(TILESTATUS.OPEN);
-            }
-        }
     }
 
     public void BuildTower(GameObject pTower)
     {
         GameObject instantiatedTower = Instantiate(pTower, new Vector3(m_gameObject.transform.position.x, 0, m_gameObject.transform.position.z), Quaternion.identity);
-        instantiatedTower.transform.SetParent(m_gameObject.transform);
+        instantiatedTower.transform.SetParent(gameObject.transform);
         m_currentBuiltTower = instantiatedTower.GetComponent<Tower>();
-        SetTileStatus(TILESTATUS.OCCUPIED);
+        SetTileStatus(tileStateOpen);
     }
 
     public Tower GetTowerEntity()
@@ -70,60 +62,57 @@ public class TileEntity : MonoBehaviour
         return m_currentBuiltTower;
     }
 
-    public void SetTileStatus(TILESTATUS pTileStatus)
+    public void SetTileStatus(TileState pTileState)
     {
-        m_tileStatus = pTileStatus;
+        m_tileState = pTileState;
         ChangeColor();
     }
 
     private void ChangeColor()
     {
-        if (m_gameObject == null)
-        {
-            m_gameObject = GetComponent<GameObject>();
-        }
-        if (m_renderer == null)
-        {
-            m_renderer = m_gameObject.GetComponent<Renderer>();
-        }
-        switch (m_tileStatus)
-        {
-            case TILESTATUS.OPEN:
-                m_renderer.material.SetColor("_Color", Color.white);
-                break;
-            case TILESTATUS.OCCUPIED:
-                m_renderer.material.SetColor("_Color", Color.blue);
-                break;
-            case TILESTATUS.START:
-                m_renderer.material.SetColor("_Color", Color.green);
-                break;
-            case TILESTATUS.END:
-                m_renderer.material.SetColor("_Color", Color.red);
-                break;
-            case TILESTATUS.WALKINGPATH:
-                m_renderer.material.SetColor("_Color", Color.grey);
-                break;
-            case TILESTATUS.SELECTED:
-                m_renderer.material.SetColor("_Color", Color.cyan);
-                break;
-        }
+        m_renderer.material.SetColor("_Color", m_tileState.tileColor);
+        //if (m_gameObject == null)
+        //{
+        //    m_gameObject = GetComponent<GameObject>();
+        //}
+        //if (m_renderer == null)
+        //{
+        //    m_renderer = m_gameObject.GetComponent<Renderer>();
+        //}
+        //switch (m_tileStatus)
+        //{
+        //    case TILESTATUS.OPEN:
+        //        m_renderer.material.SetColor("_Color", Color.white);
+        //        break;
+        //    case TILESTATUS.OCCUPIED:
+        //        m_renderer.material.SetColor("_Color", Color.blue);
+        //        break;
+        //    case TILESTATUS.START:
+        //        m_renderer.material.SetColor("_Color", Color.green);
+        //        break;
+        //    case TILESTATUS.END:
+        //        m_renderer.material.SetColor("_Color", Color.red);
+        //        break;
+        //    case TILESTATUS.WALKINGPATH:
+        //        m_renderer.material.SetColor("_Color", Color.grey);
+        //        break;
+        //    case TILESTATUS.SELECTED:
+        //        m_renderer.material.SetColor("_Color", Color.cyan);
+        //        break;
+        //}
     }
 
-    public TILESTATUS GetTileStatus()
-    {
-        return m_tileStatus;
-    }
 
     public List<TileEntity> GetUnvisitedNeighbours()
     {
         List<TileEntity> neighbours = new List<TileEntity>();
-        if (m_neighbours != null)
+        if (m_neighbourTiles != null)
         {
-            for (int i = 0; i < m_neighbours.Count; i++)
+            for (int i = 0; i < m_neighbourTiles.Count; i++)
             {
-                if (!m_neighbours[i].m_visited && m_neighbours[i].GetTileStatus() != TILESTATUS.OCCUPIED)
+                if (!m_neighbourTiles[i].m_visited)//GetTileStatus() != TILESTATUS.OCCUPIED)
                 {
-                    neighbours.Add(m_neighbours[i]);
+                    neighbours.Add(m_neighbourTiles[i]);
                 }
             }
         }
@@ -138,5 +127,3 @@ public class TileEntity : MonoBehaviour
         return distance;
     }
 }
-
-public enum TILESTATUS { OPEN = 0, OCCUPIED = 1, START = 2, END = 3, WALKINGPATH = 4, SELECTED = 5 }
