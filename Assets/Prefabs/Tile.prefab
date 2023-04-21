@@ -123,6 +123,7 @@ MonoBehaviour:
   m_parent: {fileID: 0}
   m_renderer: {fileID: 0}
   m_neighbourTiles: []
+  m_selectedTowerScriptableObject: {fileID: 11400000, guid: e4ee69133997c804ab5795caebbc2abd, type: 2}
   tileStateOpen: {fileID: 11400000, guid: eb9638d1bf7e4bf43bdf80aaf758a338, type: 2}
   tileStateOccupied: {fileID: 11400000, guid: bec3e0d5edddb70419d5e9c14ab54bf2, type: 2}
   tileStatePath: {fileID: 11400000, guid: 43a39cbc6e49eed4590af27a390e88b5, type: 2}

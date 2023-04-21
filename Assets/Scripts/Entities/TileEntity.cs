@@ -24,7 +24,8 @@ public class TileEntity : MonoBehaviour
     public List<TileEntity> m_neighbourTiles = new List<TileEntity>();
     private WorldCreator m_worldCreator;
     private Tower m_currentBuiltTower;
-    private TMP_Text m_towerText;
+    [SerializeField]
+    private SelectedTowerScriptableObject m_selectedTowerScriptableObject;
 
     [SerializeField]
     public TileState tileStateOpen, tileStateOccupied, tileStatePath, tileStateSelected, tileStateStart, tileStateEnd;
@@ -34,7 +35,7 @@ public class TileEntity : MonoBehaviour
     {
         m_renderer = gameObject.GetComponent<Renderer>();
         m_worldCreator = FindAnyObjectByType<WorldCreator>();
-        m_towerText = GameObject.FindWithTag("TowerText").GetComponent<TMP_Text>();
+
     }
 
     private void OnMouseOver()
@@ -43,9 +44,13 @@ public class TileEntity : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             m_worldCreator.SelectTileEntity(this);
-            if (m_towerText != null && m_currentBuiltTower != null)
+            if (m_currentBuiltTower != null)
             {
-                m_towerText.text = "Tower info: \nDamage: " + (m_currentBuiltTower.Damage + (m_currentBuiltTower.Level * m_currentBuiltTower.TowerUpgrade.ShootingSpeedIncrease)) + "\nRange: " + (m_currentBuiltTower.Range + (m_currentBuiltTower.Level * m_currentBuiltTower.TowerUpgrade.RangeIncrease)) + "\nSpeed: " + (m_currentBuiltTower.ShootingSpeed * (Mathf.Pow(m_currentBuiltTower.TowerUpgrade.ShootingSpeedIncrease, m_currentBuiltTower.Level)));
+                m_selectedTowerScriptableObject.SelectedTower = m_currentBuiltTower;
+            }
+            else
+            {
+                m_selectedTowerScriptableObject.SelectedTower = null;
             }
         }
     }

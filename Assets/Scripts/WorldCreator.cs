@@ -96,7 +96,7 @@ public class WorldCreator : MonoBehaviour
         m_selectedTileEntity = pTileEntity;
         m_selectedTileEntity.SetTileStatus(tileStateSelected);
 
-        //TODO: Change this to somewehre else later.
+        //TODO: Change this to somewhere else later.
         if (m_selectedTileEntity.GetTowerEntity() != null)
         {
 
