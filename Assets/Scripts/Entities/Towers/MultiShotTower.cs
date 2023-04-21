@@ -31,7 +31,8 @@ public class MultiShotTower : Tower
         foreach (Enemy enemy in m_targetList)
         {
             enemy.TakeDamage(Damage * (Level + TowerUpgrade.DamageIncrease));
-            Debug.DrawLine(this.transform.position, enemy.transform.position, Color.red, 0.5f);
+            LineRendererController lineRendererController = new LineRendererController();
+            lineRendererController.SetupLine(this.gameObject.transform, enemy.transform);
         }
     }
 }

@@ -100,7 +100,10 @@ public abstract class Tower : MonoBehaviour
         }
         if (m_enemyTarget == null && m_targetList.Count > 0)
         {
-            m_enemyTarget = m_targetList[0].GetComponent<Enemy>();
+            if (m_targetList[0] != null)
+            {
+                m_enemyTarget = m_targetList[0].GetComponent<Enemy>();
+            }
         }
         if (m_targetList.Count > 0)
         {
@@ -128,7 +131,8 @@ public abstract class Tower : MonoBehaviour
         if (m_enemyTarget != null)
         {
             m_enemyTarget.TakeDamage(Damage * (Level + TowerUpgrade.DamageIncrease));
-            Debug.DrawLine(this.transform.position, m_enemyTarget.transform.position, Color.red, 0.5f);
+            LineRendererController lineRendererController = new LineRendererController();
+            lineRendererController.SetupLine(this.transform, m_enemyTarget.transform);
         }
         m_attackTimer = 0.0f;
         m_canFire = false;
