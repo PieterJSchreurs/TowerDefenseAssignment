@@ -15,4 +15,4 @@ MonoBehaviour:
   UpgradeCost: 1
   DamageIncrease: 1.2
   RangeIncrease: 1.2
-  ShootingSpeedIncrease: 1.2
+  ShootingSpeedIncrease: 0.8

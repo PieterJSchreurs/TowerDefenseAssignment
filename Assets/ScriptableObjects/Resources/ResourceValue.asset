@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c80c2dd5f0050e940b517a942c377d3e, type: 3}
   m_Name: ResourceValue
   m_EditorClassIdentifier: 
-  InitialValue: 50
+  InitialValue: 1050

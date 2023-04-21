@@ -6,10 +6,12 @@ using TMPro;
 public class SingleTargetTower : Tower
 {
     [SerializeField]
-    private int m_cost, m_level;
+    private int m_cost;
 
     [SerializeField]
     private float m_range, m_shootingSpeed, m_damage;
+
+    private int m_level = 0;
 
     //[SerializeField]
     //private TextMeshPro m_textCost;

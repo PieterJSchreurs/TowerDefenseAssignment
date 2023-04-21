@@ -6,7 +6,7 @@ using TMPro;
 public class MultiShotTower : Tower
 {
     [SerializeField]
-    private int m_cost, m_level;
+    private int m_cost, m_level = 0;
 
     [SerializeField]
     private float m_range, m_shootingSpeed, m_damage;
@@ -30,7 +30,8 @@ public class MultiShotTower : Tower
         base.Attack();
         foreach (Enemy enemy in m_targetList)
         {
-            enemy.TakeDamage(Damage);
+            enemy.TakeDamage(Damage * (Level + TowerUpgrade.DamageIncrease));
+            Debug.DrawLine(this.transform.position, enemy.transform.position, Color.red, 0.5f);
         }
     }
 }

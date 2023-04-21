@@ -46,7 +46,7 @@ public class WorldCreator : MonoBehaviour
         return m_tileEntitiesWorldArray;
     }
 
-    public void ClearAllTiles()
+    public void ClearAllWalkingTiles()
     {
         for (int i = 0; i < m_tileEntitiesWorldArray.GetLength(0); i++)
         {
@@ -82,7 +82,6 @@ public class WorldCreator : MonoBehaviour
 
     public void SelectTileEntity(TileEntity pTileEntity)
     {
-
         if (m_selectedTileEntity != null)
         {
             if (m_selectedTileEntity.GetTowerEntity() != null)
@@ -94,24 +93,51 @@ public class WorldCreator : MonoBehaviour
                 m_selectedTileEntity.SetTileStatus(tileStateOpen);
             }
         }
-
         m_selectedTileEntity = pTileEntity;
         m_selectedTileEntity.SetTileStatus(tileStateSelected);
+
+        //TODO: Change this to somewehre else later.
+        if (m_selectedTileEntity.GetTowerEntity() != null)
+        {
+
+        }
     }
 
     public void ButtonTowerOneClicked()
     {
-        BuildTower(m_singleTargetTower);
+        if (m_selectedTileEntity.GetTowerEntity() == null)
+        {
+            BuildTower(m_singleTargetTower);
+        }
+        else if (m_selectedTileEntity.GetTowerEntity().GetType() == typeof(SingleTargetTower))
+        {
+            UpgradeTower(m_selectedTileEntity.GetTowerEntity());
+        }
     }
 
     public void ButtonTowerTwoClicked()
     {
-        BuildTower(m_debuffTower);
+        if (m_selectedTileEntity.GetTowerEntity() == null)
+        {
+            BuildTower(m_debuffTower);
+        }
+        else if (m_selectedTileEntity.GetTowerEntity().GetType() == typeof(DebuffTower))
+        {
+            UpgradeTower(m_selectedTileEntity.GetTowerEntity());
+        }
     }
 
     public void ButtonTowerThreeClicked()
     {
-        BuildTower(m_multiShotTower);
+
+        if (m_selectedTileEntity.GetTowerEntity() == null)
+        {
+            BuildTower(m_multiShotTower);
+        }
+        else if(m_selectedTileEntity.GetTowerEntity().GetType() == typeof(MultiShotTower))
+        {
+            UpgradeTower(m_selectedTileEntity.GetTowerEntity());
+        }
     }
 
     public void BuildTower(GameObject pTowerGameObject)
@@ -121,9 +147,28 @@ public class WorldCreator : MonoBehaviour
         {
             if (m_selectedTileEntity != null && m_selectedTileEntity.m_tileState.CanBuildOnTile)
             {
-                m_resourceManager.BuyUpgrade(tower.Cost);
-                m_selectedTileEntity.BuildTower(pTowerGameObject);
+                m_selectedTileEntity.SetTileStatus(tileStateOccupied);
+                if (m_pathFinder.CanGeneratePath())
+                {
+                    m_resourceManager.BuyUpgrade(tower.Cost);
+                    m_selectedTileEntity.BuildTower(pTowerGameObject);
+                }
+                else
+                {
+                    m_selectedTileEntity.SetTileStatus(tileStateOpen);
+                    //TODO: Can not create path message
+                }
+
             }
+        }
+    }
+
+    public void UpgradeTower(Tower pTower)
+    {
+        if (m_resourceManager.CanAfford(pTower.GetUpgradeCost()))
+        {
+            m_resourceManager.BuyUpgrade(pTower.GetUpgradeCost());
+            pTower.Upgrade();
         }
     }
 

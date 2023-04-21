@@ -15,7 +15,7 @@ public abstract class Tower : MonoBehaviour
 
     public abstract int Level { get; set; }
 
-   // public abstract TextMeshPro TextCost { get; set; }
+    //public abstract TextMeshPro TextCost { get; set; }
 
     [SerializeField]
     private SphereCollider m_sphereColider;
@@ -30,7 +30,7 @@ public abstract class Tower : MonoBehaviour
     private Material m_standardMaterial, m_cooldownMaterial;
 
     public TowerUpgrade TowerUpgrade;
-    
+
     private bool m_canFire = true;
     private float m_attackTimer = 0.0f;
     private protected Enemy m_enemyTarget;
@@ -42,6 +42,16 @@ public abstract class Tower : MonoBehaviour
         {
             m_sphereColider.radius = Range / 2;
             m_debugSphere.transform.localScale = new Vector3(Range, Range, Range);
+        }
+    }
+
+    private void ResizeRange()
+    {
+        if (m_sphereColider != null)
+        {
+            float calculation = Range + (Level * TowerUpgrade.RangeIncrease);
+            m_sphereColider.radius = calculation / 2;
+            m_debugSphere.transform.localScale = new Vector3(calculation, calculation, calculation);
         }
     }
 
@@ -106,7 +116,7 @@ public abstract class Tower : MonoBehaviour
         if (!m_canFire)
         {
             m_attackTimer += Time.deltaTime;
-            if (m_attackTimer >= ShootingSpeed)
+            if (m_attackTimer >= ShootingSpeed * (Math.Pow(TowerUpgrade.ShootingSpeedIncrease, Level)))
             {
                 m_canFire = true;
             }
@@ -117,8 +127,8 @@ public abstract class Tower : MonoBehaviour
     {
         if (m_enemyTarget != null)
         {
-            m_enemyTarget.TakeDamage(Damage);
-
+            m_enemyTarget.TakeDamage(Damage * (Level + TowerUpgrade.DamageIncrease));
+            Debug.DrawLine(this.transform.position, m_enemyTarget.transform.position, Color.red, 0.5f);
         }
         m_attackTimer = 0.0f;
         m_canFire = false;
@@ -126,11 +136,12 @@ public abstract class Tower : MonoBehaviour
 
     public void Upgrade()
     {
-
+        Level = Level + 1;
+        ResizeRange();
     }
 
-    public virtual float  GetUpgradeCost()
+    public virtual float GetUpgradeCost()
     {
-        return (TowerUpgrade.UpgradeCost * Level) * Cost;
+        return (TowerUpgrade.UpgradeCost * Level) + Cost;
     }
 }

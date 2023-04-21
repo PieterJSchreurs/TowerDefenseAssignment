@@ -85,15 +85,31 @@ public class PathFinder : MonoBehaviour
         }
         else
         {
-            Debug.Log("No path");
+            Debug.Log("No path" + pathFound);
         }
         return coordinateList;
     }
 
+    public bool CanGeneratePath()
+    {
+        bool value = FindPath(m_worldCreator.GetWorldArray(), m_worldCreator.GetBeginNode(), m_worldCreator.GetEndNode());
+        if(value)
+        {
+            if(m_worldCreator.GetEndNode().m_visited)
+            {
+                return true; 
+            } else
+            {
+                return false;
+            }
+        }
+        return value;
+    }
+
     private bool FindPath(TileEntity[,] pTileEntities, TileEntity pStartNode, TileEntity pEndNode)
     {
-        if (pStartNode == pEndNode) return true;
-        m_worldCreator.ClearAllTiles();
+        if (pStartNode == pEndNode) return false;
+        m_worldCreator.ClearAllWalkingTiles();
 
         pStartNode.m_visited = true;
         pStartNode.m_distance = 0;

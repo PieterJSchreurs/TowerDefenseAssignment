@@ -7,4 +7,5 @@ public class TileState : ScriptableObject
 {
     public Color TileColor;
     public bool CanBuildOnTile;
+    public bool CantMoveThroughTile;
 }

@@ -14,12 +14,12 @@ public class ResourceManager : MonoBehaviour
         SetResources(m_resourceValue.InitialValue);
     }
 
-    private void SetResources(int pResources)
+    private void SetResources(float pResources)
     {
         m_resourceValue.RuntimeValue = pResources;
     }
 
-    public bool CanAfford(int pCost)
+    public bool CanAfford(float pCost)
     {
         if (pCost <= m_resourceValue.RuntimeValue)
         {
@@ -31,7 +31,7 @@ public class ResourceManager : MonoBehaviour
         }
     }
 
-    public bool BuyUpgrade(int pUpgradeCost)
+    public bool BuyUpgrade(float pUpgradeCost)
     {
         if (CanAfford(pUpgradeCost))
         {

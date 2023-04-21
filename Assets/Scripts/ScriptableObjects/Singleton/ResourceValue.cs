@@ -5,9 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ResourceValue", menuName = "ResourceValue")]
 public class ResourceValue : ScriptableObject, ISerializationCallbackReceiver
 {
-    public int InitialValue;
+    public float InitialValue;
     [System.NonSerialized]
-    public int RuntimeValue;
+    public float RuntimeValue;
 
     public void OnAfterDeserialize()
     {

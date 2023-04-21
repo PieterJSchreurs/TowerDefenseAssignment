@@ -39,12 +39,13 @@ public class TileEntity : MonoBehaviour
 
     private void OnMouseOver()
     {
+        //TODO: Update this when leveling up.
         if (Input.GetMouseButtonDown(0))
         {
             m_worldCreator.SelectTileEntity(this);
             if (m_towerText != null && m_currentBuiltTower != null)
             {
-                m_towerText.text = "Tower info: \nDamage: " + m_currentBuiltTower.Damage + "\nRange: " + m_currentBuiltTower.Range + "\nSpeed: " + m_currentBuiltTower.ShootingSpeed;
+                m_towerText.text = "Tower info: \nDamage: " + (m_currentBuiltTower.Damage + (m_currentBuiltTower.Level * m_currentBuiltTower.TowerUpgrade.ShootingSpeedIncrease)) + "\nRange: " + (m_currentBuiltTower.Range + (m_currentBuiltTower.Level * m_currentBuiltTower.TowerUpgrade.RangeIncrease)) + "\nSpeed: " + (m_currentBuiltTower.ShootingSpeed * (Mathf.Pow(m_currentBuiltTower.TowerUpgrade.ShootingSpeedIncrease, m_currentBuiltTower.Level)));
             }
         }
     }
@@ -54,7 +55,7 @@ public class TileEntity : MonoBehaviour
         GameObject instantiatedTower = Instantiate(pTower, new Vector3(m_gameObject.transform.position.x, 0, m_gameObject.transform.position.z), Quaternion.identity);
         instantiatedTower.transform.SetParent(gameObject.transform);
         m_currentBuiltTower = instantiatedTower.GetComponent<Tower>();
-        SetTileStatus(tileStateOpen);
+        SetTileStatus(tileStateOccupied);
     }
 
     public Tower GetTowerEntity()
@@ -88,7 +89,7 @@ public class TileEntity : MonoBehaviour
         {
             for (int i = 0; i < m_neighbourTiles.Count; i++)
             {
-                if (!m_neighbourTiles[i].m_visited)
+                if (!m_neighbourTiles[i].m_visited && (!m_neighbourTiles[i].m_tileState.CantMoveThroughTile))
                 {
                     neighbours.Add(m_neighbourTiles[i]);
                 }
