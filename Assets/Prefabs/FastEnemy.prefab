@@ -364,7 +364,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 8975698657254530447}
   m_movementSpeed: 2
-  m_health: 10
+  m_health: 8
   m_killReward: 3
 --- !u!1 &4792715803955018153
 GameObject:

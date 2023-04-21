@@ -207,6 +207,7 @@ GameObject:
   - component: {fileID: 5543635655155796028}
   - component: {fileID: 2886295699132345874}
   - component: {fileID: 4357948963304476633}
+  - component: {fileID: 4927827346055052851}
   m_Layer: 2
   m_Name: DebuffTower
   m_TagString: Tower
@@ -270,13 +271,28 @@ MonoBehaviour:
   m_capsuleRenderer: {fileID: 5064421592161133570}
   m_standardMaterial: {fileID: 2100000, guid: 7207860971e8478479a6185ce15f9486, type: 2}
   m_cooldownMaterial: {fileID: 2100000, guid: 15b4f098a9587c0489c0d0269fedf59e, type: 2}
+  m_selectedTowerScriptableObject: {fileID: 0}
   TowerUpgrade: {fileID: 11400000, guid: ef86953302112fe41a9bc0e058d24949, type: 2}
   m_cost: 20
-  m_level: 0
   m_range: 4
   m_shootingSpeed: 1
   m_damage: 0
-  m_textCost: {fileID: 0}
+--- !u!54 &4927827346055052851
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5543635655155796003}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5543635655989645829
 GameObject:
   m_ObjectHideFlags: 0

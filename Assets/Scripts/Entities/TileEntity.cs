@@ -46,7 +46,7 @@ public class TileEntity : MonoBehaviour
             m_worldCreator.SelectTileEntity(this);
             if (m_currentBuiltTower != null)
             {
-                m_selectedTowerScriptableObject.SelectedTower = m_currentBuiltTower;
+                SelectTower(m_currentBuiltTower);
             }
             else
             {
@@ -55,11 +55,18 @@ public class TileEntity : MonoBehaviour
         }
     }
 
+    public void SelectTower(Tower pTower)
+    {
+        m_worldCreator.SelectTileEntity(this);
+        m_selectedTowerScriptableObject.SelectedTower = pTower;
+    }
+
     public void BuildTower(GameObject pTower)
     {
         GameObject instantiatedTower = Instantiate(pTower, new Vector3(m_gameObject.transform.position.x, 0, m_gameObject.transform.position.z), Quaternion.identity);
         instantiatedTower.transform.SetParent(gameObject.transform);
         m_currentBuiltTower = instantiatedTower.GetComponent<Tower>();
+        m_currentBuiltTower.SetTileEntity(this);
         SetTileStatus(tileStateOccupied);
     }
 

@@ -96,11 +96,6 @@ public class WorldCreator : MonoBehaviour
         m_selectedTileEntity = pTileEntity;
         m_selectedTileEntity.SetTileStatus(tileStateSelected);
 
-        //TODO: Change this to somewhere else later.
-        if (m_selectedTileEntity.GetTowerEntity() != null)
-        {
-
-        }
     }
 
     public void ButtonTowerOneClicked()
@@ -134,7 +129,7 @@ public class WorldCreator : MonoBehaviour
         {
             BuildTower(m_multiShotTower);
         }
-        else if(m_selectedTileEntity.GetTowerEntity().GetType() == typeof(MultiShotTower))
+        else if (m_selectedTileEntity.GetTowerEntity().GetType() == typeof(MultiShotTower))
         {
             UpgradeTower(m_selectedTileEntity.GetTowerEntity());
         }

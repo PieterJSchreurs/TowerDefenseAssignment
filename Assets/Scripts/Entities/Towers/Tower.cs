@@ -29,12 +29,17 @@ public abstract class Tower : MonoBehaviour
     [SerializeField]
     private Material m_standardMaterial, m_cooldownMaterial;
 
+    [SerializeField]
+    private SelectedTowerScriptableObject m_selectedTowerScriptableObject;
+
     public TowerUpgrade TowerUpgrade;
 
     private bool m_canFire = true;
     private float m_attackTimer = 0.0f;
     private protected Enemy m_enemyTarget;
     private protected List<Enemy> m_targetList = new List<Enemy>();
+    private TileEntity m_myTileEntity;
+    
 
     private void Awake()
     {
@@ -55,12 +60,11 @@ public abstract class Tower : MonoBehaviour
         }
     }
 
-    //TODO: Check if onmouseover on child "Capsule" it's collider.
     private void OnMouseOver()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("clicked");
+            m_myTileEntity.SelectTower(this);
         }
     }
 
@@ -147,5 +151,10 @@ public abstract class Tower : MonoBehaviour
     public virtual float GetUpgradeCost()
     {
         return (TowerUpgrade.UpgradeCost * Level) + Cost;
+    }
+
+    public void SetTileEntity(TileEntity pTileEntity)
+    {
+        m_myTileEntity = pTileEntity;
     }
 }
