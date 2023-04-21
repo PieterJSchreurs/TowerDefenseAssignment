@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
+using TMPro;
 
 public abstract class Tower : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public abstract class Tower : MonoBehaviour
 
     public abstract int Cost { get; set; }
     public abstract float Damage { get; set; }
+
+    public abstract int Level { get; set; }
+
+   // public abstract TextMeshPro TextCost { get; set; }
 
     [SerializeField]
     private SphereCollider m_sphereColider;
@@ -24,11 +29,12 @@ public abstract class Tower : MonoBehaviour
     [SerializeField]
     private Material m_standardMaterial, m_cooldownMaterial;
 
+    public TowerUpgrade TowerUpgrade;
+    
     private bool m_canFire = true;
     private float m_attackTimer = 0.0f;
     private protected Enemy m_enemyTarget;
     private protected List<Enemy> m_targetList = new List<Enemy>();
-    //private TYPEOFATTACK m_typeOfAttack;
 
     private void Awake()
     {
@@ -116,5 +122,15 @@ public abstract class Tower : MonoBehaviour
         }
         m_attackTimer = 0.0f;
         m_canFire = false;
+    }
+
+    public void Upgrade()
+    {
+
+    }
+
+    public virtual float  GetUpgradeCost()
+    {
+        return (TowerUpgrade.UpgradeCost * Level) * Cost;
     }
 }

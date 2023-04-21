@@ -72,7 +72,7 @@ public class TileEntity : MonoBehaviour
     {
         if (m_renderer != null && m_tileState != null)
         {
-            m_renderer.material.SetColor("_Color", m_tileState.tileColor);
+            m_renderer.material.SetColor("_Color", m_tileState.TileColor);
         }
         else
         {

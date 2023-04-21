@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f01f705b1a305124aa141f511f23207c, type: 3}
-  m_Name: TileEnd
+  m_Script: {fileID: 11500000, guid: 47502fa01d2dc4d4f8de105e3d3464cb, type: 3}
+  m_Name: TowerUpgrade
   m_EditorClassIdentifier: 
-  TileColor: {r: 1, g: 0, b: 0, a: 1}
-  CanBuildOnTile: 0
+  UpgradeCost: 1
+  DamageIncrease: 1.2
+  RangeIncrease: 1.2
+  ShootingSpeedIncrease: 1.2

@@ -6,29 +6,26 @@ using TMPro;
 public class ResourceManager : MonoBehaviour
 {
     [SerializeField]
-    public int startingResources = 50;
+    private ResourceValue m_resourceValue;
 
-    public TMP_Text resourceText;
-
-    private int m_currentResources;
     // Start is called before the first frame update
     void Start()
     {
-        SetResources(startingResources);
+        SetResources(m_resourceValue.InitialValue);
     }
 
     private void SetResources(int pResources)
     {
-        m_currentResources = pResources;
-        resourceText.text = "Gold: " + m_currentResources;
+        m_resourceValue.RuntimeValue = pResources;
     }
 
     public bool CanAfford(int pCost)
     {
-        if(pCost <= m_currentResources)
+        if (pCost <= m_resourceValue.RuntimeValue)
         {
             return true;
-        } else
+        }
+        else
         {
             return false;
         }
@@ -36,9 +33,9 @@ public class ResourceManager : MonoBehaviour
 
     public bool BuyUpgrade(int pUpgradeCost)
     {
-        if(CanAfford(pUpgradeCost))
+        if (CanAfford(pUpgradeCost))
         {
-            SetResources(m_currentResources - pUpgradeCost);
+            SetResources(m_resourceValue.RuntimeValue - pUpgradeCost);
             return true;
         }
         else
@@ -49,6 +46,6 @@ public class ResourceManager : MonoBehaviour
 
     public void AddResources(int pResources)
     {
-        SetResources(m_currentResources + pResources);
+        SetResources(m_resourceValue.RuntimeValue + pResources);
     }
 }

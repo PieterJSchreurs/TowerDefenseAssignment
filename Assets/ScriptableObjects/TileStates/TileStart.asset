@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f01f705b1a305124aa141f511f23207c, type: 3}
   m_Name: TileStart
   m_EditorClassIdentifier: 
-  tileColor: {r: 0, g: 1, b: 0, a: 1}
-  canBuildOnTile: 0
+  TileColor: {r: 0, g: 1, b: 0, a: 1}
+  CanBuildOnTile: 0

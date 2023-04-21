@@ -119,7 +119,7 @@ public class WorldCreator : MonoBehaviour
         Tower tower = pTowerGameObject.GetComponent<Tower>();
         if (m_resourceManager.CanAfford(tower.Cost))
         {
-            if (m_selectedTileEntity != null && m_selectedTileEntity.m_tileState.canBuildOnTile)
+            if (m_selectedTileEntity != null && m_selectedTileEntity.m_tileState.CanBuildOnTile)
             {
                 m_resourceManager.BuyUpgrade(tower.Cost);
                 m_selectedTileEntity.BuildTower(pTowerGameObject);

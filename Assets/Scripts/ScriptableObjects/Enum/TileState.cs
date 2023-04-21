@@ -5,6 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TileState")]
 public class TileState : ScriptableObject
 {
-    public Color tileColor;
-    public bool canBuildOnTile;
+    public Color TileColor;
+    public bool CanBuildOnTile;
 }
