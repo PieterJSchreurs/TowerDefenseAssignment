@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using UnityEngine.UI;
 public class ResourceManager : MonoBehaviour
 {
     [SerializeField]
     private ResourceValue m_resourceValue;
+
+    [SerializeField]
+    private Text m_incomeText;
+
+    private float m_incomeTimer = 0.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -47,5 +52,16 @@ public class ResourceManager : MonoBehaviour
     public void AddResources(int pResources)
     {
         SetResources(m_resourceValue.RuntimeValue + pResources);
+        m_incomeText.text = pResources.ToString();
+        m_incomeTimer = 0.0f;
+    }
+
+    public void Update()
+    {
+        m_incomeTimer += Time.deltaTime;
+        if (m_incomeTimer > 0.5f)
+        {
+            m_incomeText.text = "";
+        }
     }
 }
