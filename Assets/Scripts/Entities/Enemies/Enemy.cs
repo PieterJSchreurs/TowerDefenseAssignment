@@ -95,6 +95,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable, IMovable
                     //TODO: notify
                     GameLogic logic = FindObjectOfType<GameLogic>();
                     logic.LostLive();
+                    m_enemySpawner.NotifyDeath(this);
                 }
             }
         }

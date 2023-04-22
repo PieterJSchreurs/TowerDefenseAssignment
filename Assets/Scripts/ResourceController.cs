@@ -60,7 +60,10 @@ public class ResourceController : MonoBehaviour
         m_incomeTimer += Time.deltaTime;
         if (m_incomeTimer > 0.5f)
         {
-            m_incomeText.text = "";
+            if (m_incomeText != null)
+            {
+                m_incomeText.text = "";
+            }
         }
     }
 }

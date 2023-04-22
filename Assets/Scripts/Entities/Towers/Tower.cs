@@ -110,13 +110,16 @@ public abstract class Tower : MonoBehaviour
         }
         if (m_targetList.Count > 0)
         {
-            var lookPos = m_targetList.FirstOrDefault().transform.position - transform.position;
-            lookPos.y = 0;
-            var rotation = Quaternion.LookRotation(lookPos);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 1);
-            if (m_canFire)
+            if (m_targetList.First() != null)
             {
-                Attack();
+                var lookPos = m_targetList.First().transform.position - transform.position;
+                lookPos.y = 0;
+                var rotation = Quaternion.LookRotation(lookPos);
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 1);
+                if (m_canFire)
+                {
+                    Attack();
+                }
             }
         }
         if (!m_canFire)
