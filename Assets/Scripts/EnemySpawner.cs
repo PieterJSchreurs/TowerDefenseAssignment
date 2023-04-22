@@ -15,6 +15,9 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     public WorldCreator worldCreator;
 
+    [SerializeField]
+    private GameEventEnemyDied m_gameEventEnemyDied;
+
     private List<TileEntity> m_currentPath;
 
     private bool m_waveActive = false;
@@ -120,18 +123,19 @@ public class EnemySpawner : MonoBehaviour
 
     public void NotifyDeath(Enemy pDeadEnemy)
     {
-        if (m_currentAliveEnemies.Contains(pDeadEnemy))
-        {
-            m_currentAliveEnemies.Remove(pDeadEnemy);
-        }
-        if (m_currentAliveEnemies.Count == 0 && m_currentEnemiesInWaveCount == 0)
-        {
-            //Wave ended
-            waveList.RemoveAt(0);
-            m_waveActive = false;
-            m_gameLogic.WaveCleared();
-            Debug.Log("Wave cleared");
-        }
+
+        //if (m_currentAliveEnemies.Contains(pDeadEnemy))
+        //{
+        //    m_currentAliveEnemies.Remove(pDeadEnemy);
+        //}
+        //if (m_currentAliveEnemies.Count == 0 && m_currentEnemiesInWaveCount == 0)
+        //{
+        //    //Wave ended
+        //    waveList.RemoveAt(0);
+        //    m_waveActive = false;
+        //    m_gameLogic.WaveCleared();
+        //    Debug.Log("Wave cleared");
+        //}
     }
 
 

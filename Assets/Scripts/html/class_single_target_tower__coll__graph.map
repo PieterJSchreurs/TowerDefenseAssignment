@@ -1,9 +1,0 @@
-<map id="SingleTargetTower" name="SingleTargetTower">
-<area shape="rect" id="node1" title=" " alt="" coords="58,876,186,1012"/>
-<area shape="rect" id="node2" href="$class_tower.html" title=" " alt="" coords="53,603,191,827"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,5,116,83"/>
-<area shape="rect" id="node6" href="$class_enemy.html" title=" " alt="" coords="51,316,193,540"/>
-<area shape="rect" id="node7" href="$class_healthbar.html" title=" " alt="" coords="99,132,223,253"/>
-<area shape="rect" id="node4" href="$class_tower_upgrade.html" title=" " alt="" coords="219,367,390,489"/>
-<area shape="rect" id="node5" title=" " alt="" coords="247,154,365,231"/>
-</map>

@@ -10,6 +10,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable, IMovable
     public abstract float health { get; set; }
     public abstract int killReward { get; set; }
 
+    [SerializeField]
+    private GameEventEnemyDied m_gameEventEnemyDied;
+
     private float m_secondPerTile;
     private List<TileEntity> m_path;
     private int m_currentIndex = 0;
@@ -19,6 +22,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable, IMovable
     private ResourceController m_resourceManager;
     private EnemySpawner m_enemySpawner;
     private STATUS m_status;
+    
 
     void Awake()
     {
@@ -36,10 +40,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable, IMovable
         {
             m_resourceManager.AddResources(killReward);
         }
-        if (m_enemySpawner != null)
-        {
-            m_enemySpawner.NotifyDeath(this);
-        }
+        m_gameEventEnemyDied.Raise(this);
         Destroy(m_myGameObject);
         Destroy(this);
     }
