@@ -20,7 +20,6 @@ public abstract class Enemy : MonoBehaviour, IDamageable, IMovable
     private bool m_coroutineRunning = false;
     private GameObject m_myGameObject;
     private ResourceController m_resourceManager;
-    private EnemySpawner m_enemySpawner;
     private STATUS m_status;
     
 
@@ -30,7 +29,6 @@ public abstract class Enemy : MonoBehaviour, IDamageable, IMovable
         {
             healthBar.SetMaxHealth(health);
         }
-        m_enemySpawner = FindFirstObjectByType<EnemySpawner>();
         m_resourceManager = FindFirstObjectByType<ResourceController>();
     }
 
@@ -96,7 +94,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable, IMovable
                     //TODO: notify
                     GameLogic logic = FindObjectOfType<GameLogic>();
                     logic.LostLive();
-                    m_enemySpawner.NotifyDeath(this);
+                    m_gameEventEnemyDied.Raise(this);
                 }
             }
         }

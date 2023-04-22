@@ -22,7 +22,6 @@ public class HealthBar : MonoBehaviour
         {
             fillImage = GameObject.FindObjectOfType<RawImage>();
         }
-        gradient = GetComponent<Gradient>();
     }
     public void SetMaxHealth(float pHealth)
     {
