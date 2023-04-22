@@ -5,12 +5,12 @@ using UnityEngine;
 public class NormalEnemy : Enemy
 {
     [SerializeField]
-    private float movementSpeed;
-    public override float MovementSpeed { get => movementSpeed; set => movementSpeed = value; }
+    private float m_movementSpeed;
+    public override float movementSpeed { get => m_movementSpeed; set => m_movementSpeed = value; }
     [SerializeField]
-    private float health;
-    public override float Health { get => health; set => health = value; }
+    private float m_health;
+    public override float health { get => m_health; set => m_health = value; }
     [SerializeField]
-    private int killReward;
-    public override int KillReward { get => killReward; set => killReward = value; }
+    private int m_killReward;
+    public override int killReward { get => m_killReward; set => m_killReward = value; }
 }

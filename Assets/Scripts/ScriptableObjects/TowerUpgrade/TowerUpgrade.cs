@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TowerUpgrade", menuName = "TowerUpgrade")]
 public class TowerUpgrade : ScriptableObject
 {
-    public float UpgradeCost, DamageIncrease, RangeIncrease, ShootingSpeedIncrease;
+    public float upgradeCost, damageIncrease, rangeIncrease, shootingSpeedIncrease;
 }

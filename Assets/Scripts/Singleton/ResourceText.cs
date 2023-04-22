@@ -1,23 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 
-[RequireComponent(typeof(TMP_Text))]
+[RequireComponent(typeof(Text))]
 public class ResourceText : MonoBehaviour
 {
     [SerializeField]
     private ResourceValue m_resourceValue;
-    private TMP_Text m_text;
+    private Text m_resourceText;
 
     private void Awake()
     {
-        m_text = GetComponent<TMP_Text>();
+        m_resourceText = GetComponent<Text>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        m_text.text = "Resources: " + m_resourceValue.RuntimeValue;
+        m_resourceText.text = "Resources: " + m_resourceValue.runTimeValue;
     }
 }

@@ -5,13 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ResourceValue", menuName = "ResourceValue")]
 public class ResourceValue : ScriptableObject, ISerializationCallbackReceiver
 {
-    public float InitialValue;
+    public float initialValue;
     [System.NonSerialized]
-    public float RuntimeValue;
+    public float runTimeValue;
 
     public void OnAfterDeserialize()
     {
-        RuntimeValue = InitialValue;
+        runTimeValue = initialValue;
     }
 
     public void OnBeforeSerialize()

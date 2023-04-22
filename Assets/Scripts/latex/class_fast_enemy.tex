@@ -1,0 +1,96 @@
+\hypertarget{class_fast_enemy}{}\doxysection{Fast\+Enemy Class Reference}
+\label{class_fast_enemy}\index{FastEnemy@{FastEnemy}}
+
+
+Inheritance diagram for Fast\+Enemy\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=187pt]{class_fast_enemy__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Fast\+Enemy\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_fast_enemy__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_fast_enemy_afe520586d52c7aba70dd6ffd37bffcea}\label{class_fast_enemy_afe520586d52c7aba70dd6ffd37bffcea}} 
+override float {\bfseries Movement\+Speed}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+\mbox{\Hypertarget{class_fast_enemy_a5ea11507033f8c089b8032184dde174e}\label{class_fast_enemy_a5ea11507033f8c089b8032184dde174e}} 
+override float {\bfseries Health}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+\mbox{\Hypertarget{class_fast_enemy_a2c55f40579eaaa979c092b420aa0ed42}\label{class_fast_enemy_a2c55f40579eaaa979c092b420aa0ed42}} 
+override int {\bfseries Kill\+Reward}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties inherited from \mbox{\hyperlink{class_enemy}{Enemy}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_enemy_a2f9e5d0ec4afff67f76286876848b23a}\label{class_enemy_a2f9e5d0ec4afff67f76286876848b23a}} 
+abstract float {\bfseries Movement\+Speed}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+\mbox{\Hypertarget{class_enemy_a7ab68b506d031a01c2ce29eb800fc88a}\label{class_enemy_a7ab68b506d031a01c2ce29eb800fc88a}} 
+abstract float {\bfseries Health}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+\mbox{\Hypertarget{class_enemy_a65c5d4ee8f60b8b3e8ee172984652b9b}\label{class_enemy_a65c5d4ee8f60b8b3e8ee172984652b9b}} 
+abstract int {\bfseries Kill\+Reward}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+\mbox{\Hypertarget{class_enemy_a79b27aa331bff8f0fbd9c2e5770627c1}\label{class_enemy_a79b27aa331bff8f0fbd9c2e5770627c1}} 
+float {\bfseries second\+Per\+Tile}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+\mbox{\Hypertarget{class_enemy_a91404d78f1cd3f45e25bb2f927a697b7}\label{class_enemy_a91404d78f1cd3f45e25bb2f927a697b7}} 
+List$<$ \mbox{\hyperlink{class_tile_entity}{Tile\+Entity}} $>$ {\bfseries path}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+\doxysubsubsection*{Public Types inherited from \mbox{\hyperlink{class_enemy}{Enemy}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_enemy_a8d0efe68e77b563183af64f77c930611}\label{class_enemy_a8d0efe68e77b563183af64f77c930611}} 
+enum {\bfseries STATUS} \{ {\bfseries NORMAL} = 0
+, {\bfseries SLOWED} = 1
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_enemy}{Enemy}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_enemy_ac8eb629ba2895e86aa7f940334c94c02}\label{class_enemy_ac8eb629ba2895e86aa7f940334c94c02}} 
+void {\bfseries Die} ()
+\item 
+\mbox{\Hypertarget{class_enemy_a7ee0f223f6a860799b682b0894998de5}\label{class_enemy_a7ee0f223f6a860799b682b0894998de5}} 
+void {\bfseries Take\+Damage} (float p\+Damage)
+\item 
+\mbox{\Hypertarget{class_enemy_a80560cd7c04c1c0846715740bad699d1}\label{class_enemy_a80560cd7c04c1c0846715740bad699d1}} 
+void {\bfseries Update} ()
+\item 
+\mbox{\Hypertarget{class_enemy_a23db8ee8511f2ac092415dd8faac8796}\label{class_enemy_a23db8ee8511f2ac092415dd8faac8796}} 
+void {\bfseries Move\+Next} (int p\+Current\+Index, float p\+Time\+It\+Takes)
+\item 
+\mbox{\Hypertarget{class_enemy_ad59fdcaaf3913f5ac4e193ac934c5002}\label{class_enemy_ad59fdcaaf3913f5ac4e193ac934c5002}} 
+IEnumerator {\bfseries Move\+To\+Next\+Tile} (Game\+Object p\+Object\+To\+Move, Vector3 p\+End, float p\+Seconds)
+\item 
+\mbox{\Hypertarget{class_enemy_a36fa92c638abf294347a052f69029861}\label{class_enemy_a36fa92c638abf294347a052f69029861}} 
+void {\bfseries Set\+Game\+Object} (Game\+Object p\+My\+Game\+Object)
+\item 
+\mbox{\Hypertarget{class_enemy_aa6768af2fb66e57022490b3a88ba5b62}\label{class_enemy_aa6768af2fb66e57022490b3a88ba5b62}} 
+void {\bfseries Affected\+By\+Status} (STATUS p\+Status)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes inherited from \mbox{\hyperlink{class_enemy}{Enemy}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_enemy_a4e77dcb9bf46b97921657b5343763a17}\label{class_enemy_a4e77dcb9bf46b97921657b5343763a17}} 
+\mbox{\hyperlink{class_healthbar}{Healthbar}} {\bfseries health\+Bar}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Entities/\+Enemies/Fast\+Enemy.\+cs\end{DoxyCompactItemize}

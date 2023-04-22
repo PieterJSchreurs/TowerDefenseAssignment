@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ae2168fc5126844ba723d22fb05c848, type: 3}
   m_Name: Wave2
   m_EditorClassIdentifier: 
-  TimebetweenSpawn: 1
-  RewardMultiplier: 1
-  HealthMultiplier: 1
+  timeBetweenSpawn: 1
+  rewardMultiplier: 1
+  healthMultiplier: 1
   m_normalEnemiesInitialCount: 0
   m_fastEnemiesInitialCount: 10
   m_slowEnemiesInitialCount: 10

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameLogic : MonoBehaviour
@@ -10,7 +10,7 @@ public class GameLogic : MonoBehaviour
     public int startingLives = 10, timeBetweenRounds = 10;
 
     [SerializeField]
-    public TMP_Text liveText, waveText, timerText;
+    public Text liveText, waveText, timerText;
 
     [SerializeField]
     public EnemySpawner enemySpawner;

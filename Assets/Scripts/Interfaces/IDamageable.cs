@@ -8,9 +8,9 @@ using UnityEngine;
 public interface IDamageable
 {
     [SerializeField]
-    public int health { get; set; }
+    public float health { get; set; }
 
-    public void TakeDamage(int pDamage);
+    public void TakeDamage(float pDamage);
 
     public void Die();
 }

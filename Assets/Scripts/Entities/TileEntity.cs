@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 [RequireComponent(typeof(Renderer))]
 public class TileEntity : MonoBehaviour
@@ -11,29 +10,27 @@ public class TileEntity : MonoBehaviour
     [SerializeField]
     public GameObject m_gameObject;
     [SerializeField]
+    public TileState tileStateOpen, tileStateOccupied, tileStatePath, tileStateSelected, tileStateStart, tileStateEnd;
+
+    [SerializeField]
     private GameObject m_singleTargetTower, m_debuffTower, m_multiShotTower;
-
-    public int m_xCoordinate, m_yCoordinate;
-    public float m_distance = 99;
-
-    public TileState m_tileState;
-
-    public bool m_visited = false;
-    public TileEntity m_parent;
-    public Renderer m_renderer;
-    public List<TileEntity> m_neighbourTiles = new List<TileEntity>();
-    private WorldCreator m_worldCreator;
-    private Tower m_currentBuiltTower;
     [SerializeField]
     private SelectedTowerScriptableObject m_selectedTowerScriptableObject;
 
-    [SerializeField]
-    public TileState tileStateOpen, tileStateOccupied, tileStatePath, tileStateSelected, tileStateStart, tileStateEnd;
+    public TileState tileState;
+    public bool visited = false;
+    public TileEntity parentTile;
+    public Renderer tileRenderer;
+    public List<TileEntity> neighbourTiles = new List<TileEntity>();
+    public float distance = 99;
+    public int xCoordinate, yCoordinate;
 
+    private WorldCreator m_worldCreator;
+    private Tower m_currentBuiltTower;
 
     public void Awake()
     {
-        m_renderer = gameObject.GetComponent<Renderer>();
+        tileRenderer = gameObject.GetComponent<Renderer>();
         m_worldCreator = FindAnyObjectByType<WorldCreator>();
 
     }
@@ -50,7 +47,7 @@ public class TileEntity : MonoBehaviour
             }
             else
             {
-                m_selectedTowerScriptableObject.SelectedTower = null;
+                m_selectedTowerScriptableObject.selectedTower = null;
             }
         }
     }
@@ -58,7 +55,7 @@ public class TileEntity : MonoBehaviour
     public void SelectTower(Tower pTower)
     {
         m_worldCreator.SelectTileEntity(this);
-        m_selectedTowerScriptableObject.SelectedTower = pTower;
+        m_selectedTowerScriptableObject.selectedTower = pTower;
     }
 
     public void BuildTower(GameObject pTower)
@@ -77,15 +74,15 @@ public class TileEntity : MonoBehaviour
 
     public void SetTileStatus(TileState pTileState)
     {
-        m_tileState = pTileState;
+        tileState = pTileState;
         ChangeColor();
     }
 
     private void ChangeColor()
     {
-        if (m_renderer != null && m_tileState != null)
+        if (tileRenderer != null && tileState != null)
         {
-            m_renderer.material.SetColor("_Color", m_tileState.TileColor);
+            tileRenderer.material.SetColor("_Color", tileState.tileColor);
         }
         else
         {
@@ -97,13 +94,13 @@ public class TileEntity : MonoBehaviour
     public List<TileEntity> GetUnvisitedNeighbours()
     {
         List<TileEntity> neighbours = new List<TileEntity>();
-        if (m_neighbourTiles != null)
+        if (neighbourTiles != null)
         {
-            for (int i = 0; i < m_neighbourTiles.Count; i++)
+            for (int i = 0; i < neighbourTiles.Count; i++)
             {
-                if (!m_neighbourTiles[i].m_visited && (!m_neighbourTiles[i].m_tileState.CantMoveThroughTile))
+                if (!neighbourTiles[i].visited && (!neighbourTiles[i].tileState.cantMoveThroughTile))
                 {
-                    neighbours.Add(m_neighbourTiles[i]);
+                    neighbours.Add(neighbourTiles[i]);
                 }
             }
         }
@@ -112,8 +109,8 @@ public class TileEntity : MonoBehaviour
 
     public float CalculateDistance(TileEntity pGoalNode)
     {
-        int xDiff = Mathf.Abs(pGoalNode.m_xCoordinate - m_xCoordinate);
-        int yDiff = Mathf.Abs(pGoalNode.m_yCoordinate - m_yCoordinate);
+        int xDiff = Mathf.Abs(pGoalNode.xCoordinate - xCoordinate);
+        int yDiff = Mathf.Abs(pGoalNode.yCoordinate - yCoordinate);
         float distance = Mathf.Sqrt(Mathf.Pow(xDiff, 2) + Mathf.Pow(yDiff, 2));
         return distance;
     }

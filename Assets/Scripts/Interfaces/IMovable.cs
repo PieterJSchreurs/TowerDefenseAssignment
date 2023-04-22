@@ -7,5 +7,6 @@ public interface IMovable
     [SerializeField]
     public float movementSpeed { get; set; }
     public List<TileEntity> path { get; set; }
-    void MoveNext(int pCurrentIndex, float pTimeItTakes);
+    IEnumerator MoveToNextTile(GameObject pObjectToMove, Vector3 pEnd, float pSeconds);
+    
 }

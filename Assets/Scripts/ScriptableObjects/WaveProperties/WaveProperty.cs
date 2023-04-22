@@ -6,19 +6,19 @@ using UnityEngine;
 public class WaveProperty : ScriptableObject, ISerializationCallbackReceiver
 {
     [System.NonSerialized]
-    public int NormalEnemiesCount, FastEnemiesCount, SlowEnemiesCount;
+    public int normalEnemiesCount, fastEnemiesCount, slowEnemiesCount;
 
 
-    public float TimebetweenSpawn, RewardMultiplier, HealthMultiplier;
+    public float timeBetweenSpawn, rewardMultiplier, healthMultiplier;
 
     [SerializeField]
     private int m_normalEnemiesInitialCount, m_fastEnemiesInitialCount, m_slowEnemiesInitialCount;
 
     public void OnAfterDeserialize()
     {
-        NormalEnemiesCount = m_normalEnemiesInitialCount;
-        FastEnemiesCount = m_fastEnemiesInitialCount;
-       SlowEnemiesCount = m_slowEnemiesInitialCount;
+        normalEnemiesCount = m_normalEnemiesInitialCount;
+        fastEnemiesCount = m_fastEnemiesInitialCount;
+       slowEnemiesCount = m_slowEnemiesInitialCount;
     }
 
     public void OnBeforeSerialize()

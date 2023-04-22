@@ -1,0 +1,99 @@
+\hypertarget{class_tile_entity}{}\doxysection{Tile\+Entity Class Reference}
+\label{class_tile_entity}\index{TileEntity@{TileEntity}}
+
+
+Inheritance diagram for Tile\+Entity\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=215pt]{class_tile_entity__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Tile\+Entity\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_tile_entity__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_tile_entity_a4acc414f0bfb288cb860c763a9eb6845}\label{class_tile_entity_a4acc414f0bfb288cb860c763a9eb6845}} 
+void {\bfseries Awake} ()
+\item 
+\mbox{\Hypertarget{class_tile_entity_ae93f0849830e5c5e073dfe8888a58b7c}\label{class_tile_entity_ae93f0849830e5c5e073dfe8888a58b7c}} 
+void {\bfseries Select\+Tower} (\mbox{\hyperlink{class_tower}{Tower}} p\+Tower)
+\item 
+\mbox{\Hypertarget{class_tile_entity_a2a9049582404c550433618c1bcf59415}\label{class_tile_entity_a2a9049582404c550433618c1bcf59415}} 
+void {\bfseries Build\+Tower} (Game\+Object p\+Tower)
+\item 
+\mbox{\Hypertarget{class_tile_entity_a84c3fd04705e4136efcf146af8aa977c}\label{class_tile_entity_a84c3fd04705e4136efcf146af8aa977c}} 
+\mbox{\hyperlink{class_tower}{Tower}} {\bfseries Get\+Tower\+Entity} ()
+\item 
+\mbox{\Hypertarget{class_tile_entity_a75e97f870e37d68c102760b079f33c43}\label{class_tile_entity_a75e97f870e37d68c102760b079f33c43}} 
+void {\bfseries Set\+Tile\+Status} (\mbox{\hyperlink{class_tile_state}{Tile\+State}} p\+Tile\+State)
+\item 
+\mbox{\Hypertarget{class_tile_entity_afa1d6479f0ad33854a3ce5a43da50e29}\label{class_tile_entity_afa1d6479f0ad33854a3ce5a43da50e29}} 
+List$<$ \mbox{\hyperlink{class_tile_entity}{Tile\+Entity}} $>$ {\bfseries Get\+Unvisited\+Neighbours} ()
+\item 
+\mbox{\Hypertarget{class_tile_entity_ad4ee6d7051b1dcfd9a36a224ec7a5446}\label{class_tile_entity_ad4ee6d7051b1dcfd9a36a224ec7a5446}} 
+float {\bfseries Calculate\+Distance} (\mbox{\hyperlink{class_tile_entity}{Tile\+Entity}} p\+Goal\+Node)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_tile_entity_ab69d1d31e932381c4b29ba72c6b73b63}\label{class_tile_entity_ab69d1d31e932381c4b29ba72c6b73b63}} 
+Game\+Object {\bfseries m\+\_\+game\+Object}
+\item 
+\mbox{\Hypertarget{class_tile_entity_a6ce08be683d7e13a7bcc1089a962702e}\label{class_tile_entity_a6ce08be683d7e13a7bcc1089a962702e}} 
+int {\bfseries m\+\_\+x\+Coordinate}
+\item 
+\mbox{\Hypertarget{class_tile_entity_a0cbfa36646f19364c3de2f5ffeafb7f4}\label{class_tile_entity_a0cbfa36646f19364c3de2f5ffeafb7f4}} 
+int {\bfseries m\+\_\+y\+Coordinate}
+\item 
+\mbox{\Hypertarget{class_tile_entity_ade61d0e656d7d3c9496ee6befda48634}\label{class_tile_entity_ade61d0e656d7d3c9496ee6befda48634}} 
+float {\bfseries m\+\_\+distance} = 99
+\item 
+\mbox{\Hypertarget{class_tile_entity_a399c4f7c60b18014e2538a3dc40cba31}\label{class_tile_entity_a399c4f7c60b18014e2538a3dc40cba31}} 
+\mbox{\hyperlink{class_tile_state}{Tile\+State}} {\bfseries m\+\_\+tile\+State}
+\item 
+\mbox{\Hypertarget{class_tile_entity_aaab32d1b41f2a032c4177518bc290269}\label{class_tile_entity_aaab32d1b41f2a032c4177518bc290269}} 
+bool {\bfseries m\+\_\+visited} = false
+\item 
+\mbox{\Hypertarget{class_tile_entity_abb528aaf6c41d77333460e4c5e3bf02a}\label{class_tile_entity_abb528aaf6c41d77333460e4c5e3bf02a}} 
+\mbox{\hyperlink{class_tile_entity}{Tile\+Entity}} {\bfseries m\+\_\+parent}
+\item 
+\mbox{\Hypertarget{class_tile_entity_ac7932f828331e0c00f9b0f8debe1ce2d}\label{class_tile_entity_ac7932f828331e0c00f9b0f8debe1ce2d}} 
+Renderer {\bfseries m\+\_\+renderer}
+\item 
+\mbox{\Hypertarget{class_tile_entity_ae8e6eb3d914f662a227bb809588a038b}\label{class_tile_entity_ae8e6eb3d914f662a227bb809588a038b}} 
+List$<$ \mbox{\hyperlink{class_tile_entity}{Tile\+Entity}} $>$ {\bfseries m\+\_\+neighbour\+Tiles} = new List$<$\mbox{\hyperlink{class_tile_entity}{Tile\+Entity}}$>$()
+\item 
+\mbox{\Hypertarget{class_tile_entity_a9270e9e2deb6807f5a395e9947804d69}\label{class_tile_entity_a9270e9e2deb6807f5a395e9947804d69}} 
+\mbox{\hyperlink{class_tile_state}{Tile\+State}} {\bfseries tile\+State\+Open}
+\item 
+\mbox{\Hypertarget{class_tile_entity_ad4f51808f8c269af574913a144170e14}\label{class_tile_entity_ad4f51808f8c269af574913a144170e14}} 
+\mbox{\hyperlink{class_tile_state}{Tile\+State}} {\bfseries tile\+State\+Occupied}
+\item 
+\mbox{\Hypertarget{class_tile_entity_a65eff55bb38244d30ddac75c13294434}\label{class_tile_entity_a65eff55bb38244d30ddac75c13294434}} 
+\mbox{\hyperlink{class_tile_state}{Tile\+State}} {\bfseries tile\+State\+Path}
+\item 
+\mbox{\Hypertarget{class_tile_entity_a0f0f4bbfbba93fcf0a39154917295fe8}\label{class_tile_entity_a0f0f4bbfbba93fcf0a39154917295fe8}} 
+\mbox{\hyperlink{class_tile_state}{Tile\+State}} {\bfseries tile\+State\+Selected}
+\item 
+\mbox{\Hypertarget{class_tile_entity_a51ff19d6f7eee1d467af81234c07080f}\label{class_tile_entity_a51ff19d6f7eee1d467af81234c07080f}} 
+\mbox{\hyperlink{class_tile_state}{Tile\+State}} {\bfseries tile\+State\+Start}
+\item 
+\mbox{\Hypertarget{class_tile_entity_aae87cda64d356ee2d0d5ba2cbf8bb23b}\label{class_tile_entity_aae87cda64d356ee2d0d5ba2cbf8bb23b}} 
+\mbox{\hyperlink{class_tile_state}{Tile\+State}} {\bfseries tile\+State\+End}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Entities/Tile\+Entity.\+cs\end{DoxyCompactItemize}

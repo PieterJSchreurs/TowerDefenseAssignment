@@ -68,13 +68,13 @@ public class PathFinder : MonoBehaviour
 
         bool pathFound = FindPath(m_worldCreator.GetWorldArray(), startNode, endNode);
         List<TileEntity> coordinateList = new List<TileEntity>();
-        if (pathFound && endNode.m_parent != null && endNode.m_visited)
+        if (pathFound && endNode.parentTile != null && endNode.visited)
         {
             TileEntity selectedCoordinate = endNode;
             while (selectedCoordinate != startNode)
             {
                 coordinateList.Add(selectedCoordinate);
-                selectedCoordinate = selectedCoordinate.m_parent;
+                selectedCoordinate = selectedCoordinate.parentTile;
                 if (selectedCoordinate != startNode && selectedCoordinate != endNode)
                 {
                     selectedCoordinate.SetTileStatus(tileStatePath);
@@ -95,7 +95,7 @@ public class PathFinder : MonoBehaviour
         bool value = FindPath(m_worldCreator.GetWorldArray(), m_worldCreator.GetBeginNode(), m_worldCreator.GetEndNode());
         if(value)
         {
-            if(m_worldCreator.GetEndNode().m_visited)
+            if(m_worldCreator.GetEndNode().visited)
             {
                 return true; 
             } else
@@ -111,8 +111,8 @@ public class PathFinder : MonoBehaviour
         if (pStartNode == pEndNode) return false;
         m_worldCreator.ClearAllWalkingTiles();
 
-        pStartNode.m_visited = true;
-        pStartNode.m_distance = 0;
+        pStartNode.visited = true;
+        pStartNode.distance = 0;
         m_priorityQueue = new PriorityQueue();
         m_priorityQueue.AddToQueue(pStartNode, 0);
         TileEntity curNode;
@@ -120,16 +120,16 @@ public class PathFinder : MonoBehaviour
         {
             curNode = m_priorityQueue.GetFirstInQueue();
             m_priorityQueue.RemoveFromQueue(curNode);
-            curNode.m_visited = true;
+            curNode.visited = true;
 
             List<TileEntity> unvisitedNeighbours = curNode.GetUnvisitedNeighbours();
             foreach (TileEntity item in unvisitedNeighbours)
             {
-                float minDistance = Mathf.Min(item.m_distance, curNode.m_distance + 1);
-                if (minDistance != item.m_distance)
+                float minDistance = Mathf.Min(item.distance, curNode.distance + 1);
+                if (minDistance != item.distance)
                 {
-                    item.m_distance = minDistance;
-                    item.m_parent = curNode;
+                    item.distance = minDistance;
+                    item.parentTile = curNode;
 
                     if (m_priorityQueue.ContainsItem(item))
                     {
@@ -147,6 +147,11 @@ public class PathFinder : MonoBehaviour
             }
         }
         return true;
+    }
+
+    public void SetWorldTiles(WorldCreator pWorldCreator)
+    {
+        m_worldCreator = pWorldCreator;
     }
 }
 

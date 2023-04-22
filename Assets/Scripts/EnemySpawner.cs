@@ -36,7 +36,7 @@ public class EnemySpawner : MonoBehaviour
 
     public int GetNumberOfEnemiesInWave()
     {
-        return waveList[0].NormalEnemiesCount + waveList[0].FastEnemiesCount + waveList[0].SlowEnemiesCount; ;
+        return waveList[0].normalEnemiesCount + waveList[0].fastEnemiesCount + waveList[0].slowEnemiesCount; ;
     }
 
     public void ActivateWave()
@@ -61,19 +61,19 @@ public class EnemySpawner : MonoBehaviour
         if (m_waveActive)
         {
             timer += Time.deltaTime;
-            if (timer > waveList[0].TimebetweenSpawn)
+            if (timer > waveList[0].timeBetweenSpawn)
             {
                 if (m_currentEnemiesInWaveCount > 0)
                 {
-                    if (waveList[0].NormalEnemiesCount > 0)
+                    if (waveList[0].normalEnemiesCount > 0)
                     {
                         SpawnEnemy(enemyPrefabsList[0]);
                     }
-                    else if (waveList[0].FastEnemiesCount > 0)
+                    else if (waveList[0].fastEnemiesCount > 0)
                     {
                         SpawnEnemy(enemyPrefabsList[1]);
                     }
-                    else if (waveList[0].SlowEnemiesCount > 0)
+                    else if (waveList[0].slowEnemiesCount > 0)
                     {
                         SpawnEnemy(enemyPrefabsList[2]);
                     }
@@ -95,15 +95,15 @@ public class EnemySpawner : MonoBehaviour
         var type = pEnemyPrefab.GetComponentInChildren<Enemy>();
         if (type.GetType() == typeof(NormalEnemy))
         {
-            waveInformation.NormalEnemiesCount--;
+            waveInformation.normalEnemiesCount--;
         }
         if (type.GetType() == typeof(FastEnemy))
         {
-            waveInformation.FastEnemiesCount--;
+            waveInformation.fastEnemiesCount--;
         }
         if (type.GetType() == typeof(SlowEnemy))
         {
-            waveInformation.SlowEnemiesCount--;
+            waveInformation.slowEnemiesCount--;
         }
         m_currentPath = pathFinder.GeneratePath(); //Get last path if not changed.
         GameObject enemyGameObject = Instantiate(pEnemyPrefab, new Vector3(0, 0, 0), Quaternion.identity);

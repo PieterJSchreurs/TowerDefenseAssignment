@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
-using TMPro;
 
 public abstract class Tower : MonoBehaviour
 {
-    public abstract float Range { get; set; }
-    public abstract float ShootingSpeed { get; set; }
+    public abstract float range { get; set; }
+    public abstract float shootingSpeed { get; set; }
 
-    public abstract int Cost { get; set; }
-    public abstract float Damage { get; set; }
+    public abstract int cost { get; set; }
+    public abstract float damage { get; set; }
 
-    public abstract int Level { get; set; }
+    public abstract int level { get; set; }
 
     //public abstract TextMeshPro TextCost { get; set; }
 
@@ -32,7 +31,7 @@ public abstract class Tower : MonoBehaviour
     [SerializeField]
     private SelectedTowerScriptableObject m_selectedTowerScriptableObject;
 
-    public TowerUpgrade TowerUpgrade;
+    public TowerUpgrade towerUpgrade;
 
     private bool m_canFire = true;
     private float m_attackTimer = 0.0f;
@@ -45,8 +44,8 @@ public abstract class Tower : MonoBehaviour
     {
         if (m_sphereColider != null)
         {
-            m_sphereColider.radius = Range / 2;
-            m_debugSphere.transform.localScale = new Vector3(Range, Range, Range);
+            m_sphereColider.radius = range / 2;
+            m_debugSphere.transform.localScale = new Vector3(range, range, range);
         }
     }
 
@@ -54,7 +53,7 @@ public abstract class Tower : MonoBehaviour
     {
         if (m_sphereColider != null)
         {
-            float calculation = Range + (Level * TowerUpgrade.RangeIncrease);
+            float calculation = range + (level * towerUpgrade.rangeIncrease);
             m_sphereColider.radius = calculation / 2;
             m_debugSphere.transform.localScale = new Vector3(calculation, calculation, calculation);
         }
@@ -123,7 +122,7 @@ public abstract class Tower : MonoBehaviour
         if (!m_canFire)
         {
             m_attackTimer += Time.deltaTime;
-            if (m_attackTimer >= ShootingSpeed * (Math.Pow(TowerUpgrade.ShootingSpeedIncrease, Level)))
+            if (m_attackTimer >= shootingSpeed * (Math.Pow(towerUpgrade.shootingSpeedIncrease, level)))
             {
                 m_canFire = true;
             }
@@ -134,7 +133,7 @@ public abstract class Tower : MonoBehaviour
     {
         if (m_enemyTarget != null)
         {
-            m_enemyTarget.TakeDamage(Damage * (Level + TowerUpgrade.DamageIncrease));
+            m_enemyTarget.TakeDamage(damage * (level + towerUpgrade.damageIncrease));
             LineRendererController lineRendererController = new LineRendererController();
             lineRendererController.SetupLine(this.transform, m_enemyTarget.transform);
         }
@@ -144,13 +143,13 @@ public abstract class Tower : MonoBehaviour
 
     public void Upgrade()
     {
-        Level = Level + 1;
+        level = level + 1;
         ResizeRange();
     }
 
     public virtual float GetUpgradeCost()
     {
-        return (TowerUpgrade.UpgradeCost * Level) + Cost;
+        return (towerUpgrade.upgradeCost * level) + cost;
     }
 
     public void SetTileEntity(TileEntity pTileEntity)

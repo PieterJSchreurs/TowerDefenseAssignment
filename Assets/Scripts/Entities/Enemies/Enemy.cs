@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour, IDamageable, IMovable
 {
     [SerializeField]
-    public Healthbar healthBar;
-    public abstract float MovementSpeed { get; set; }
-    public abstract float Health { get; set; }
-    public abstract int KillReward { get; set; }
+    public HealthBar healthBar;
+    public abstract float movementSpeed { get; set; }
+    public abstract float health { get; set; }
+    public abstract int killReward { get; set; }
 
     private float m_secondPerTile;
     private List<TileEntity> m_path;
@@ -16,7 +16,7 @@ public abstract class Enemy : MonoBehaviour
     private IEnumerator m_coroutine;
     private bool m_coroutineRunning = false;
     private GameObject m_myGameObject;
-    private ResourceManager m_resourceManager;
+    private ResourceController m_resourceManager;
     private EnemySpawner m_enemySpawner;
     private STATUS m_status;
 
@@ -24,17 +24,24 @@ public abstract class Enemy : MonoBehaviour
     {
         if (healthBar != null)
         {
-            healthBar.SetMaxHealth(Health);
+            healthBar.SetMaxHealth(health);
         }
         m_enemySpawner = FindFirstObjectByType<EnemySpawner>();
-        m_resourceManager = FindFirstObjectByType<ResourceManager>();
+        m_resourceManager = FindFirstObjectByType<ResourceController>();
     }
 
     public void Die()
     {
-        m_resourceManager.AddResources(KillReward);
-        m_enemySpawner.NotifyDeath(this);
+        if (m_resourceManager != null)
+        {
+            m_resourceManager.AddResources(killReward);
+        }
+        if (m_enemySpawner != null)
+        {
+            m_enemySpawner.NotifyDeath(this);
+        }
         Destroy(m_myGameObject);
+        Destroy(this);
     }
 
     public float secondPerTile
@@ -51,12 +58,12 @@ public abstract class Enemy : MonoBehaviour
 
     public void TakeDamage(float pDamage)
     {
-        Health -= pDamage;
+        health -= pDamage;
         if (healthBar != null)
         {
-            healthBar.SetHealth(Health);
+            healthBar.SetHealth(health);
         }
-        if (Health <= 0)
+        if (health <= 0)
         {
             Die();
         }
@@ -64,35 +71,33 @@ public abstract class Enemy : MonoBehaviour
 
     public void Update()
     {
-        if (m_currentIndex < m_path.Count - 1)
+        if (m_path != null)
         {
-            if (!m_coroutineRunning)
+            if (m_currentIndex < m_path.Count - 1)
             {
-                float effectiveMovementSpeed = MovementSpeed;
-                if(m_status == STATUS.SLOWED)
+                if (!m_coroutineRunning)
                 {
-                    effectiveMovementSpeed = effectiveMovementSpeed / 2;
+                    float effectiveMovementSpeed = movementSpeed;
+                    if (m_status == STATUS.SLOWED)
+                    {
+                        effectiveMovementSpeed = effectiveMovementSpeed / 2;
+                    }
+                    m_coroutine = MoveToNextTile(m_myGameObject, new Vector3(m_path[m_currentIndex + 1].m_gameObject.transform.position.x, 0, m_path[m_currentIndex + 1].m_gameObject.transform.position.z), (1.0f / effectiveMovementSpeed));
+                    StartCoroutine(m_coroutine);
                 }
-                m_coroutine = MoveToNextTile(m_myGameObject, new Vector3(m_path[m_currentIndex + 1].m_gameObject.transform.position.x, 0, m_path[m_currentIndex + 1].m_gameObject.transform.position.z), (1.0f / effectiveMovementSpeed));
-                StartCoroutine(m_coroutine);
             }
-        }
-        else
-        {
-            //Reached end
-            if (!m_coroutineRunning)
+            else
             {
-                Destroy(m_myGameObject);
-                //TODO: notify
-                GameLogic logic = FindObjectOfType<GameLogic>();
-                logic.LostLive();
+                //Reached end
+                if (!m_coroutineRunning)
+                {
+                    Destroy(m_myGameObject);
+                    //TODO: notify
+                    GameLogic logic = FindObjectOfType<GameLogic>();
+                    logic.LostLive();
+                }
             }
         }
-    }
-
-    public void MoveNext(int pCurrentIndex, float pTimeItTakes)
-    {
-
     }
 
     public IEnumerator MoveToNextTile(GameObject pObjectToMove, Vector3 pEnd, float pSeconds)

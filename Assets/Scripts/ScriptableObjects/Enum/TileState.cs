@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TileState")]
 public class TileState : ScriptableObject
 {
-    public Color TileColor;
-    public bool CanBuildOnTile;
-    public bool CantMoveThroughTile;
+    public Color tileColor;
+    public bool canBuildOnTile;
+    public bool cantMoveThroughTile;
 }

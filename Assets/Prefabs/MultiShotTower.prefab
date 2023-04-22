@@ -271,8 +271,8 @@ MonoBehaviour:
   m_capsuleRenderer: {fileID: 5064421592161133570}
   m_standardMaterial: {fileID: 2100000, guid: 7207860971e8478479a6185ce15f9486, type: 2}
   m_cooldownMaterial: {fileID: 2100000, guid: 15b4f098a9587c0489c0d0269fedf59e, type: 2}
-  m_selectedTowerScriptableObject: {fileID: 0}
-  TowerUpgrade: {fileID: 11400000, guid: ef86953302112fe41a9bc0e058d24949, type: 2}
+  m_selectedTowerScriptableObject: {fileID: 11400000, guid: e4ee69133997c804ab5795caebbc2abd, type: 2}
+  towerUpgrade: {fileID: 11400000, guid: ef86953302112fe41a9bc0e058d24949, type: 2}
   m_cost: 10
   m_level: 0
   m_range: 4

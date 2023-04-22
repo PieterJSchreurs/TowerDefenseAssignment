@@ -3,24 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Healthbar : MonoBehaviour
+public class HealthBar : MonoBehaviour
 {
     [SerializeField]
-    public Slider m_slider;
+    public Slider slider;
     [SerializeField]
-    public Gradient m_gradient;
+    public Gradient gradient;
     [SerializeField]
-    public RawImage m_fill;
+    public RawImage fillImage;
 
+    private void Awake()
+    {
+        if (slider == null)
+        {
+            slider = GameObject.FindObjectOfType<Slider>();
+        }
+        if (fillImage == null)
+        {
+            fillImage = GameObject.FindObjectOfType<RawImage>();
+        }
+    }
     public void SetMaxHealth(float pHealth)
     {
-        m_slider.maxValue = pHealth;
-        m_slider.value = pHealth;
+        slider.maxValue = pHealth;
+        slider.value = pHealth;
     }
 
     public void SetHealth(float pHealth)
     {
-        m_slider.value = pHealth;
-        m_fill.color = m_gradient.Evaluate(m_slider.normalizedValue);
+        slider.value = pHealth;
+        fillImage.color = gradient.Evaluate(slider.normalizedValue);
     }
 }

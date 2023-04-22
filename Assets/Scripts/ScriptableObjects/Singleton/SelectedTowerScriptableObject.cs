@@ -5,11 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SelectedTower", menuName ="SelectedTower")]
 public class SelectedTowerScriptableObject : ScriptableObject, ISerializationCallbackReceiver
 {
-    public Tower SelectedTower;
+    public Tower selectedTower;
 
     public void OnAfterDeserialize()
     {
-        SelectedTower = null;
+        selectedTower = null;
     }
 
     public void OnBeforeSerialize()

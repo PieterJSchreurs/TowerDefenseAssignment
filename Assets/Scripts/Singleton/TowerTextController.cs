@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-
 public class TowerTextController : MonoBehaviour
 {
     [SerializeField]
-    public SelectedTowerScriptableObject SelectedTower;
+    public SelectedTowerScriptableObject selectedTowerScriptableObject;
 
     [SerializeField]
     private Text m_singleTargetTowerNameText, m_singleTargetTowerCostText, m_debuffTowerNameText, m_debuffTowerCostText, m_multishotTowerNameText, m_multishotTowerCostText, m_towerInformationText;
@@ -17,13 +15,13 @@ public class TowerTextController : MonoBehaviour
 
     public void Update()
     {
-        if (SelectedTower.SelectedTower != null)
+        if (selectedTowerScriptableObject.selectedTower != null)
         {
-            m_towerInformationText.text = "Tower info: \nDamage: " + (SelectedTower.SelectedTower.Damage + (SelectedTower.SelectedTower.Level * SelectedTower.SelectedTower.TowerUpgrade.ShootingSpeedIncrease)) + "\nRange: " + (SelectedTower.SelectedTower.Range + (SelectedTower.SelectedTower.Level * SelectedTower.SelectedTower.TowerUpgrade.RangeIncrease)) + "\nSpeed: " + (SelectedTower.SelectedTower.ShootingSpeed * (Mathf.Pow(SelectedTower.SelectedTower.TowerUpgrade.ShootingSpeedIncrease, SelectedTower.SelectedTower.Level))); ;
-            if (SelectedTower.SelectedTower.GetType() == typeof(SingleTargetTower))
+            m_towerInformationText.text = "Tower info: \nDamage: " + (selectedTowerScriptableObject.selectedTower.damage + (selectedTowerScriptableObject.selectedTower.level * selectedTowerScriptableObject.selectedTower.towerUpgrade.shootingSpeedIncrease)) + "\nRange: " + (selectedTowerScriptableObject.selectedTower.range + (selectedTowerScriptableObject.selectedTower.level * selectedTowerScriptableObject.selectedTower.towerUpgrade.rangeIncrease)) + "\nSpeed: " + (selectedTowerScriptableObject.selectedTower.shootingSpeed * (Mathf.Pow(selectedTowerScriptableObject.selectedTower.towerUpgrade.shootingSpeedIncrease, selectedTowerScriptableObject.selectedTower.level))); ;
+            if (selectedTowerScriptableObject.selectedTower.GetType() == typeof(SingleTargetTower))
             {
                 m_singleTargetTowerNameText.text = "Upgrade tower";
-                m_singleTargetTowerCostText.text = "Cost : " + SelectedTower.SelectedTower.GetUpgradeCost();
+                m_singleTargetTowerCostText.text = "Cost : " + selectedTowerScriptableObject.selectedTower.GetUpgradeCost();
 
                 //Reset rest
                 m_debuffTowerNameText.text = "";
@@ -31,10 +29,10 @@ public class TowerTextController : MonoBehaviour
                 m_multishotTowerNameText.text = "";
                 m_multishotTowerCostText.text = "";
             }
-            else if (SelectedTower.SelectedTower.GetType() == typeof(DebuffTower))
+            else if (selectedTowerScriptableObject.selectedTower.GetType() == typeof(DebuffTower))
             {
                 m_debuffTowerNameText.text = "Upgrade tower";
-                m_debuffTowerCostText.text = "Cost : " + SelectedTower.SelectedTower.GetUpgradeCost();
+                m_debuffTowerCostText.text = "Cost : " + selectedTowerScriptableObject.selectedTower.GetUpgradeCost();
 
                 //Reset rest
                 m_singleTargetTowerNameText.text = "";
@@ -44,10 +42,10 @@ public class TowerTextController : MonoBehaviour
 
                 
             }
-            else if (SelectedTower.SelectedTower.GetType() == typeof(MultiShotTower))
+            else if (selectedTowerScriptableObject.selectedTower.GetType() == typeof(MultiShotTower))
             {
                 m_multishotTowerNameText.text = "Upgrade tower";
-                m_multishotTowerCostText.text = "Cost : " + SelectedTower.SelectedTower.GetUpgradeCost();
+                m_multishotTowerCostText.text = "Cost : " + selectedTowerScriptableObject.selectedTower.GetUpgradeCost();
 
                 //Reset rest
                 m_singleTargetTowerNameText.text = "";
@@ -59,11 +57,11 @@ public class TowerTextController : MonoBehaviour
         else
         {
             m_singleTargetTowerNameText.text = "Build Single target Tower";
-            m_singleTargetTowerCostText.text = "Cost " + m_singleTargetTower.GetComponent<Tower>().Cost;
+            m_singleTargetTowerCostText.text = "Cost " + m_singleTargetTower.GetComponent<Tower>().cost;
             m_debuffTowerNameText.text = "Build Debuff tower";
-            m_debuffTowerCostText.text = "" + m_debuffTower.GetComponent<Tower>().Cost;
+            m_debuffTowerCostText.text = "" + m_debuffTower.GetComponent<Tower>().cost;
             m_multishotTowerNameText.text = "Build Multi shot tower" ;
-            m_multishotTowerCostText.text = "" + m_multiShotTower.GetComponent<Tower>().Cost;
+            m_multishotTowerCostText.text = "" + m_multiShotTower.GetComponent<Tower>().cost;
             m_towerInformationText.text = "" ;
         }
     }
