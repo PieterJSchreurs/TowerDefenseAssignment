@@ -12,6 +12,9 @@ public class ResourceController : MonoBehaviour
 
     private float m_incomeTimer = 0.0f;
 
+    [SerializeField]
+    private GameEventEnemyDiedListener m_gameEventEnemyDiedListener;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,10 +51,10 @@ public class ResourceController : MonoBehaviour
         }
     }
 
-    public void AddResources(int pResources)
+    public void AddResources(Enemy pKilledEnemy)
     {
-        SetResources(m_resourceValue.runTimeValue + pResources);
-        m_incomeText.text = pResources.ToString();
+        SetResources(m_resourceValue.runTimeValue + pKilledEnemy.killReward);
+        m_incomeText.text = pKilledEnemy.killReward.ToString();
         m_incomeTimer = 0.0f;
     }
 

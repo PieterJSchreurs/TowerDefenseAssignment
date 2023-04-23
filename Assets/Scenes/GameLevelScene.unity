@@ -2016,6 +2016,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1699860139}
   - component: {fileID: 1699860140}
+  - component: {fileID: 1699860141}
   m_Layer: 0
   m_Name: Resources
   m_TagString: Untagged
@@ -2052,6 +2053,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_resourceValue: {fileID: 11400000, guid: 89d64a616408e534dbb57b3defb7ff46, type: 2}
   m_incomeText: {fileID: 1411368321}
+  m_gameEventEnemyDiedListener: {fileID: 1699860141}
+--- !u!114 &1699860141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1699860138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c02523a7da261e4690a378f1cd2c4b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_gameEventEnemyDied: {fileID: 11400000, guid: dead0bad9844f3d46b1a71cb28dcfc92, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1699860140}
+        m_TargetAssemblyTypeName: ResourceController, MyAssembly
+        m_MethodName: AddResources
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1925115938
 GameObject:
   m_ObjectHideFlags: 0
@@ -2245,7 +2275,7 @@ MonoBehaviour:
   columns: 10
   tilePrefabGameObject: {fileID: 282504685660855957, guid: 53fb5db58738d874a8c023cc339b9eae, type: 3}
   cameraObject: {fileID: 963194225}
-  offsetBetweenTiles: 0
+  offsetBetweenTiles: 0.1
   m_pathFinder: {fileID: 16775798}
   m_singleTargetTower: {fileID: 5543635655155796003, guid: c43c85b8753c53546b933c0c5ae6f3e4, type: 3}
   m_debuffTower: {fileID: 5543635655155796003, guid: c5d2b38ed09547b45a1428c29d409d70, type: 3}

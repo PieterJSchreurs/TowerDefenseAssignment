@@ -123,7 +123,6 @@ public class EnemySpawner : MonoBehaviour
 
     public void NotifyDeath(Enemy pDeadEnemy)
     {
-
         if (m_currentAliveEnemies.Contains(pDeadEnemy))
         {
             m_currentAliveEnemies.Remove(pDeadEnemy);

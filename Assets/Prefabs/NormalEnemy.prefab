@@ -365,7 +365,7 @@ MonoBehaviour:
   healthBar: {fileID: 8975698657254530447}
   m_gameEventEnemyDied: {fileID: 11400000, guid: dead0bad9844f3d46b1a71cb28dcfc92, type: 2}
   m_movementSpeed: 2
-  m_health: 10
+  m_health: 6
   m_killReward: 3
 --- !u!1 &4792715803955018153
 GameObject:

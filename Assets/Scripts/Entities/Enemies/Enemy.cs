@@ -34,10 +34,10 @@ public abstract class Enemy : MonoBehaviour, IDamageable, IMovable
 
     public void Die()
     {
-        if (m_resourceManager != null)
-        {
-            m_resourceManager.AddResources(killReward);
-        }
+        //if (m_resourceManager != null)
+        //{
+        //    m_resourceManager.AddResources(killReward);
+        //}
         m_gameEventEnemyDied.Raise(this);
         Destroy(m_myGameObject);
         Destroy(this);

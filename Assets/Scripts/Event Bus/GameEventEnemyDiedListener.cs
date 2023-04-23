@@ -11,7 +11,7 @@ public class GameEventEnemyDiedListener : MonoBehaviour
     [SerializeField]
     private GameEventEnemyDied m_gameEventEnemyDied;
 
-    public EnemyDiedEvent Response;
+    public EnemyDiedEvent response;
     private void OnEnable()
     {
         m_gameEventEnemyDied.RegisterListener(this); 
@@ -23,5 +23,5 @@ public class GameEventEnemyDiedListener : MonoBehaviour
     }
 
     public void OnEventRaised(Enemy pEnemy)
-    { Response.Invoke(pEnemy); }
+    { response.Invoke(pEnemy); }
 }

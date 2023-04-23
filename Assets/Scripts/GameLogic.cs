@@ -55,7 +55,7 @@ public class GameLogic : MonoBehaviour
     {
         if(pLives <= 0)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            SceneManager.LoadScene("GameOverScene");
         }
         liveText.text = "Lives: " + pLives;
     }
@@ -90,7 +90,7 @@ public class GameLogic : MonoBehaviour
         m_currentWave--;
         if(m_currentWave <= 0)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+            SceneManager.LoadScene("VictoryScene");
         }
         SetWaveNumber(m_amountOfWaves, m_currentWave);
         m_waveActive = false;
